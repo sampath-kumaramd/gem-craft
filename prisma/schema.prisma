@@ -9,102 +9,102 @@ datasource db {
 }
 
 model Gem {
-  id          Int               @id @default(autoincrement())
+  id          String           @id @default(uuid())
   name        String
   description String?
   image       String?
   price       Decimal?
   stock       Int?
   material    String[]
-  natural      Boolean
-  shape        String
-  texture      String
-  colors       String[]
+  natural     Boolean
+  shape       String
+  texture     String
+  colors      String[]
   weight      Decimal?
   quantity    Int?
   active      Boolean?
   dimensions  String?
-  category    GemCategory?      @relation(fields: [categoryId], references: [id])
-  categoryId  Int?
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  jewelries   JewelryPosition[]
+  categoryId  String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  category    GemCategory?     @relation(fields: [categoryId], references: [id])
+  jewelries   JewelryPosition?
 }
 
 model GemCategory {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   name      String   @unique
-  gems      Gem[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  gems      Gem[]
 }
 
 model Pendant {
-  id          Int               @id @default(autoincrement())
+  id          String           @id @default(uuid())
   name        String
   description String?
   image       String?
   price       Decimal?
   stock       Int?
   material    String[]
-  natural      Boolean
-  shape        String
-  texture      String
-  colors       String[]
+  natural     Boolean
+  shape       String
+  texture     String
+  colors      String[]
   weight      Decimal?
   quantity    Int?
   active      Boolean?
   dimensions  String?
-  category    PendantCategory?  @relation(fields: [categoryId], references: [id])
-  categoryId  Int?
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  jewelries   JewelryPosition[]
+  categoryId  String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  jewelries   JewelryPosition?
+  category    PendantCategory? @relation(fields: [categoryId], references: [id])
 }
 
 model PendantCategory {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(uuid())
   name      String    @unique
-  pendants  Pendant[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  pendants  Pendant[]
 }
 
 model Jewelry {
-  id          Int               @id @default(autoincrement())
+  id          String            @id @default(uuid())
   name        String?
   description String?
   status      String            @default("draft")
   shareLink   String?
   chainColor  String
-  positions   JewelryPosition[]
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
   userId      Int
+  positions   JewelryPosition[]
 }
 
 model JewelryPosition {
-  id        Int           @id @default(autoincrement())
+  id        String        @id @default(uuid())
   position  Int           @unique
-  gemId     Int?          @unique
-  pendantId Int?          @unique
-  jewelry   Jewelry       @relation(fields: [jewelryId], references: [id])
-  jewelryId Int
-  gem       Gem?          @relation(fields: [gemId], references: [id])
-  pendant   Pendant?      @relation(fields: [pendantId], references: [id])
-  designId  Int
-  design    JewelryDesign @relation(fields: [designId], references: [id])
+  gemId     String?       @unique
+  pendantId String?       @unique
+  jewelryId String
+  designId  String
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
+  design    JewelryDesign @relation(fields: [designId], references: [id])
+  gem       Gem?          @relation(fields: [gemId], references: [id])
+  jewelry   Jewelry       @relation(fields: [jewelryId], references: [id])
+  pendant   Pendant?      @relation(fields: [pendantId], references: [id])
 }
 
 model JewelryDesign {
-  id          Int               @id @default(autoincrement())
+  id          String            @id @default(uuid())
   name        String
   description String?
   chainColor  String
-  positions   JewelryPosition[]
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
   userId      Int
+  positions   JewelryPosition[]
 }
