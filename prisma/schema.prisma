@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Gem {
+  id          Int               @id @default(autoincrement())
+  name        String
+  description String?
+  image       String?
+  price       Decimal?
+  stock       Int?
+  material    String[]
+  natural      Boolean
+  shape        String
+  texture      String
+  colors       String[]
+  weight      Decimal?
+  quantity    Int?
+  active      Boolean?
+  dimensions  String?
+  category    GemCategory?      @relation(fields: [categoryId], references: [id])
+  categoryId  Int?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  jewelries   JewelryPosition[]
+}
+
+model GemCategory {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  gems      Gem[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Pendant {
+  id          Int               @id @default(autoincrement())
+  name        String
+  description String?
+  image       String?
+  price       Decimal?
+  stock       Int?
+  material    String[]
+  natural      Boolean
+  shape        String
+  texture      String
+  colors       String[]
+  weight      Decimal?
+  quantity    Int?
+  active      Boolean?
+  dimensions  String?
+  category    PendantCategory?  @relation(fields: [categoryId], references: [id])
+  categoryId  Int?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  jewelries   JewelryPosition[]
+}
+
+model PendantCategory {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  pendants  Pendant[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Jewelry {
+  id          Int               @id @default(autoincrement())
+  name        String?
+  description String?
+  status      String            @default("draft")
+  shareLink   String?
+  chainColor  String
+  positions   JewelryPosition[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  userId      Int
+}
+
+model JewelryPosition {
+  id        Int           @id @default(autoincrement())
+  position  Int           @unique
+  gemId     Int?          @unique
+  pendantId Int?          @unique
+  jewelry   Jewelry       @relation(fields: [jewelryId], references: [id])
+  jewelryId Int
+  gem       Gem?          @relation(fields: [gemId], references: [id])
+  pendant   Pendant?      @relation(fields: [pendantId], references: [id])
+  designId  Int
+  design    JewelryDesign @relation(fields: [designId], references: [id])
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model JewelryDesign {
+  id          Int               @id @default(autoincrement())
+  name        String
+  description String?
+  chainColor  String
+  positions   JewelryPosition[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  userId      Int
+}
