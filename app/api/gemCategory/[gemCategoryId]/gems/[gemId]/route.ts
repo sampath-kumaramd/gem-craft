@@ -25,30 +25,12 @@ export async function GET(
   }
 }
 
-// data: {
-//   name,
-//   description,
-//   image,
-//   price,
-//   stock,
-//   material,
-//   natural,
-//   shape,
-//   texture,
-//   colors,
-//   weight,
-//   quantity,
-//   active,
-//   dimensions,
-//   categoryId: params.gemCategoryId,
-// },
-
 export async function PATCH(
   req: Request,
   { params }: { params: { gemId: string; gemCategoryId: string } }
 ) {
   try {
-    const { userId } = auth();
+    // const { userId } = auth();
     const body = await req.json();
 
     const {
@@ -68,9 +50,9 @@ export async function PATCH(
       dimensions,
     } = body;
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    // if (!userId) {
+    //   return new NextResponse("Unauthorized", { status: 401 });
+    // }
 
     if (!params.gemId) {
       return new NextResponse("Gem Id is required", { status: 400 });
@@ -109,11 +91,11 @@ export async function DELETE(
   { params }: { params: { gemId: string; gemCategoryId: string } }
 ) {
   try {
-    const { userId } = auth();
+    // const { userId } = auth();
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    // if (!userId) {
+    //   return new NextResponse("Unauthorized", { status: 401 });
+    // }
 
     if (!params.gemId) {
       return new NextResponse("Gem Id is required", { status: 400 });

@@ -28,14 +28,14 @@ export async function PATCH(
     { params } : { params: { gemCategoryId: string } }
 ){
     try{
-        const { userId } = auth();
+        // const { userId } = auth();
         const body = await req.json();
 
         const { name } = body;
 
-        if(!userId){
-            return new NextResponse("Unauthorized", { status: 401 });
-        }
+        // if(!userId){
+        //     return new NextResponse("Unauthorized", { status: 401 });
+        // }
 
         if(!name){
             return new NextResponse("Name is required", { status: 400 });
@@ -65,11 +65,11 @@ export async function DELETE(
     { params } : { params: { gemCategoryId: string } }
 ) {
     try{
-        const { userId } = auth();
+        // const { userId } = auth();
        
-        if(!userId){
-            return new NextResponse("Unauthorized", { status: 401 });
-        }
+        // if(!userId){
+        //     return new NextResponse("Unauthorized", { status: 401 });
+        // }
 
         if(!params.gemCategoryId){
             return new NextResponse("Gem Category Id is required", { status: 400 });

@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { userId } = auth();
+    // const { userId } = auth();
     const body = await req.json();
     const { name } = body;
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    // if (!userId) {
+    //   return new NextResponse("Unauthorized", { status: 401 });
+    // }
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });
     }
@@ -29,11 +29,11 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const { userId } = auth();
+    // const { userId } = auth();
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    // if (!userId) {
+    //   return new NextResponse("Unauthorized", { status: 401 });
+    // }
     const gemCategory = await prisma.gemCategory.findMany({});
     return NextResponse.json(gemCategory);
   } catch (error) {
