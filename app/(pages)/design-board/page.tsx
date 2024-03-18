@@ -6,7 +6,7 @@ type Props = {};
 export default function page({}: Props) {
   return (
     <div>
-      pages
+      Design page
       <UserButton />
     </div>
   );

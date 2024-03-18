@@ -15,12 +15,12 @@ export async function POST(req: Request) {
       return new NextResponse("Name is required", { status: 400 });
     }
 
-    const gemCategory = await prisma.gemCategory.create({
+    const Category = await prisma.category.create({
       data: {
         name,
       },
     });
-    return NextResponse.json(gemCategory);
+    return NextResponse.json(Category);
   } catch (error) {
     console.error("[Gem_Category_POST]", error);
     return new NextResponse("Internal error", { status: 500 });
@@ -34,8 +34,8 @@ export async function GET(req: Request) {
     // if (!userId) {
     //   return new NextResponse("Unauthorized", { status: 401 });
     // }
-    const gemCategory = await prisma.gemCategory.findMany({});
-    return NextResponse.json(gemCategory);
+    const Category = await prisma.category.findMany({});
+    return NextResponse.json(Category);
   } catch (error) {
     console.error("[Gem_Category_GET]", error);
     return new NextResponse("Internal error", { status: 500 });

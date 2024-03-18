@@ -5,29 +5,29 @@ import prisma from "@/lib/prisma";
 
 export async function GET(
   request: Request,
-  { params }: { params: { gemId: string } }
+  { params }: { params: { itemId: string } }
 ) {
   try {
-    if (!params.gemId) {
-      return new NextResponse("Gem Id is required", { status: 400 });
+    if (!params.itemId) {
+      return new NextResponse("item Id is required", { status: 400 });
     }
 
-    const gem = await prisma.gem.findUnique({
+    const item = await prisma.item.findUnique({
       where: {
-        id: params.gemId,
+        id: params.itemId,
       },
     });
 
-    return NextResponse.json(gem);
+    return NextResponse.json(item);
   } catch (err) {
-    console.error("[Gem_GET]", err);
+    console.error("[item_GET]", err);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { gemId: string; gemCategoryId: string } }
+  { params }: { params: { itemId: string; itemCategoryId: string } }
 ) {
   try {
     // const { userId } = auth();
@@ -35,6 +35,7 @@ export async function PATCH(
 
     const {
       name,
+      type,
       description,
       image,
       price,
@@ -54,16 +55,17 @@ export async function PATCH(
     //   return new NextResponse("Unauthorized", { status: 401 });
     // }
 
-    if (!params.gemId) {
-      return new NextResponse("Gem Id is required", { status: 400 });
+    if (!params.itemId) {
+      return new NextResponse("item Id is required", { status: 400 });
     }
 
-    const gem = await prisma.gem.update({
+    const item = await prisma.item.update({
       where: {
-        id: params.gemId,
+        id: params.itemId,
       },
       data: {
         name,
+        type,
         description,
         image,
         price,
@@ -79,16 +81,16 @@ export async function PATCH(
         dimensions,
       },
     });
-    return NextResponse.json(gem);
+    return NextResponse.json(item);
   } catch (error) {
-    console.error("[Gem_PATCH]", error);
+    console.error("[item_PATCH]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { gemId: string; gemCategoryId: string } }
+  { params }: { params: { itemId: string; itemCategoryId: string } }
 ) {
   try {
     // const { userId } = auth();
@@ -97,19 +99,19 @@ export async function DELETE(
     //   return new NextResponse("Unauthorized", { status: 401 });
     // }
 
-    if (!params.gemId) {
-      return new NextResponse("Gem Id is required", { status: 400 });
+    if (!params.itemId) {
+      return new NextResponse("item Id is required", { status: 400 });
     }
 
-    const gem = await prisma.gem.delete({
+    const item = await prisma.item.delete({
       where: {
-        id: params.gemId,
+        id: params.itemId,
       },
     });
 
-    return NextResponse.json(gem);
+    return NextResponse.json(item);
   } catch (err) {
-    console.error("[Gem_DELETE]", err);
+    console.error("[item_DELETE]", err);
     return new NextResponse("Internal error", { status: 500 });
   }
 }

@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(
   req: Request,
-  { params }: { params: { gemCategoryId: string } }
+  { params }: { params: { categoryId: string } }
 ) {
   try {
     // const { userId } = auth();
@@ -12,6 +12,7 @@ export async function POST(
     const {
       name,
       description,
+      type,
       image,
       price,
       stock,
@@ -34,13 +35,18 @@ export async function POST(
       return new NextResponse("Name is required", { status: 400 });
     }
 
-    if (!params.gemCategoryId) {
-      return new NextResponse("Gem Category Id is required", { status: 400 });
+    if (!params.categoryId) {
+      return new NextResponse("item Category Id is required", { status: 400 });
     }
 
-    const gem = await prisma.gem.create({
+    if (!type) {
+      return new NextResponse("Type is required", { status: 400 });
+    }
+
+    const item = await prisma.item.create({
       data: {
         name,
+        type,
         description,
         image,
         price,
@@ -54,20 +60,20 @@ export async function POST(
         quantity,
         active,
         dimensions,
-        categoryId: params.gemCategoryId,
+        categoryId: params.categoryId,
       },
     });
 
-    return NextResponse.json(gem);
+    return NextResponse.json(item);
   } catch (error) {
-    console.error("[Gems_POST]", error);
+    console.error("[items_POST]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
 export async function GET(
   req: Request,
-  { params }: { params: { gemCategoryId: string } }
+  { params }: { params: { categoryId: string } }
 ) {
   try {
     // const { userId } = auth();
@@ -76,26 +82,26 @@ export async function GET(
     //   return new NextResponse("Unauthorized", { status: 401 });
     // }
 
-    if (!params.gemCategoryId) {
-      return new NextResponse("Gem Category Id is required", { status: 400 });
+    if (!params.categoryId) {
+      return new NextResponse("item Category Id is required", { status: 400 });
     }
 
-    const gems = await prisma.gem.findMany({
+    const items = await prisma.item.findMany({
       where: {
-        categoryId: params.gemCategoryId,
+        categoryId: params.categoryId,
       },
     });
 
-    return NextResponse.json(gems);
+    return NextResponse.json(items);
   } catch (error) {
-    console.error("[Gems_GET]", error);
+    console.error("[items_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { gemCategoryId: string } }
+  { params }: { params: { categoryId: string } }
 ) {
   try {
     // const { userId } = auth();
@@ -104,15 +110,15 @@ export async function DELETE(
     //   return new NextResponse("Unauthorized", { status: 401 });
     // }
 
-    const gems = await prisma.gem.deleteMany({
+    const items = await prisma.item.deleteMany({
       where: {
-        categoryId: params.gemCategoryId,
+        categoryId: params.categoryId,
       },
     });
 
-    return NextResponse.json(gems);
+    return NextResponse.json(items);
   } catch (err) {
-    console.error("[Gem_DELETE]", err);
+    console.error("[item_DELETE]", err);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
