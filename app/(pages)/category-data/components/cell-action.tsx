@@ -31,7 +31,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     onSuccess: () => {
       console.log("onSuccess");
       queryClient.invalidateQueries({ queryKey: ["posts"] });
-      router.push("/category");
+      router.push("/category-data");
       queryClient.setQueryData(["categorys"], data);
     },
   });
@@ -41,7 +41,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     deletePostMutation.mutate(projectId);
     router.refresh();
     toast.success("toastMessage");
-    router.push(`/categoty`);
+    router.push(`/category-data`);
     queryClient.setQueryData(["categorys"], data);
     setOpen(false);
   };
@@ -64,13 +64,13 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => router.push(`/categoty/${data.id}/category`)}
+            onClick={() => router.push(`/category-data/${data.id}/category`)}
           >
             <Eye className="mr-2 h-4 w-4" />
             View
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/categoty/${data.id}`)}
+            onClick={() => router.push(`/category-data/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4" />
             Update

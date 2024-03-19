@@ -2,16 +2,21 @@
 
 import { getCategoryById } from "@/hooks/category";
 import { useQuery } from "@tanstack/react-query";
-import { CategoryFrom } from "./components/category-form";
+import { ItemsFrom } from "./item-form";
+import { getItemById } from "@/hooks/items";
 
-export function CategoryPage({ params }: { params: { categoryId: string } }) {
+export function ItemPage({
+  params,
+}: {
+  params: { categoryId: string; itemId: string };
+}) {
   const {
     status,
     error,
     data: categoryById,
   } = useQuery({
     queryKey: ["categoryById", params.categoryId],
-    queryFn: () => getCategoryById(params.categoryId),
+    queryFn: () => getItemById(params.categoryId, params.itemId),
   });
 
   if (status === "pending") {
@@ -24,13 +29,14 @@ export function CategoryPage({ params }: { params: { categoryId: string } }) {
   return (
     <div className="flex-col">
       <div className="flex-1 ">
-        <CategoryFrom
+        <ItemsFrom
           initialData={categoryById}
           categoryId={params.categoryId}
+          itemId={params.itemId}
         />
       </div>
     </div>
   );
 }
 
-export default CategoryPage;
+export default ItemPage;

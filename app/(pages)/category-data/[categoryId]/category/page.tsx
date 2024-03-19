@@ -3,7 +3,7 @@
 import { getCategoryById } from "@/hooks/category";
 import { useQuery } from "@tanstack/react-query";
 import {  CreateItemType, getItems } from "@/hooks/items";
-import { CostingPageComponent } from "../components/category-page";
+import { CategoryPageComponent } from "../components/category-page";
 // import { CostingPageComponent } from "../components/costing-page";
 
 export function CostingPage  ({ params }: { params: { costingId: string } }){
@@ -32,7 +32,7 @@ export function CostingPage  ({ params }: { params: { costingId: string } }){
   return (
     <div className="flex-col">
       <div className="flex-1 ">
-        <CostingPageComponent initialData={costingById} initialItemsData={ItemsData}  />
+        <CategoryPageComponent initialData={costingById} initialItemsData={ItemsData}  />
       </div>
     </div>
   );

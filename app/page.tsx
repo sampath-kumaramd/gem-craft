@@ -11,7 +11,7 @@ export default function Home() {
         you need to add user name and passowrd to login to design board.
       </div>
       <div className="justify-center items-center flex align-middle h-[88vh]">
-        <Link href="/design-board">
+        <Link href="/category-data">
           <Button>Make Your Own Design Here...</Button>
         </Link>
       </div>

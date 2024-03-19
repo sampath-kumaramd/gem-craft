@@ -4,20 +4,13 @@ import { Sidebar } from "@/components/sidebar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { z } from "zod";
-// import { CostingData } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-// import {
-//   EitCostingData,
-//   createCostingData,
-//   updateCostingData,
-// } from "@/hooks/category";
 import { Loader2 } from "lucide-react";
 import uniqid from "uniqid";
 import { createItem, CreateItemType, deleteItems } from "@/hooks/items";
-// import { ItemFromComponent } from "./item-form-component";
 import { Category } from "@prisma/client";
 import TSForm from "@/components/ui/form";
 import { createCategory, EditCategory, updateCategory } from "@/hooks/category";
@@ -26,63 +19,34 @@ import { ItemFromComponent } from "./item-form-component";
 
 interface CategoryFormProps {
   initialData: Category | null;
-  initialItemsData: CreateItemType[] | undefined;
   categoryId: string;
 }
 
 export const CategoryFrom: React.FC<CategoryFormProps> = ({
   initialData,
-  initialItemsData,
   categoryId,
 }) => {
   const router = useRouter();
+  const [categoryCreateId, setcategoryCreateId] = useState(uniqid());
 
   const caregorySchema = z.object({
     name: z.string().describe("Caregory Name // sample name"),
   });
 
   const queryClient = useQueryClient();
-  const [categoryCreateId, setcategoryCreateId] = useState(uniqid());
-  const createItemMutation = useMutation({
-    mutationFn: createItem,
-    onSuccess: (itemsData) => {
-      queryClient.setQueryData(["getItems"], itemsData);
-      //   queryClient.invalidateQueries(["getItems"], { exact: true });
-      router.refresh();
-      toast.success("toastMessage");
-      console.log(itemsData, "sfdfs");
-      console.log(itemsData, "data");
-    },
-  });
-
-  const [itemsData, setItemsData] = useState<CreateItemType[]>([]);
-
-  const [initialItemsDataArray, setInitialItemsDataArray] = useState<
-    CreateItemType[]
-  >([]);
-
-  useEffect(() => {
-    if (initialItemsData) {
-      setInitialItemsDataArray(initialItemsData);
-      setItemsData(initialItemsData);
-    }
-  }, [initialItemsData]);
 
   const createCategoryMutation = useMutation({
     mutationFn: createCategory,
     onSuccess: (data) => {
       queryClient.setQueryData(["category"], data);
-      //   queryClient.invalidateQueries(["category"], { exact: true });
+      // queryClient.invalidateQueries(["category"], { exact: true });
       router.refresh();
       router.push(`/category-data`);
       toast.success("toastMessage");
-      console.log(data, "sfdfs");
     },
   });
 
   function handleSubmit(data: z.infer<typeof caregorySchema>) {
-    itemsData.map((item) => submitItems(item));
-    console.log(data, "data");
     createCategoryMutation.mutate({
       id: categoryCreateId,
       name: data.name,
@@ -103,7 +67,6 @@ export const CategoryFrom: React.FC<CategoryFormProps> = ({
 
   function handleEditSubmit(initialData: EditCategory) {
     deleteItems(categoryId);
-    itemsData.map((item) => submitItems(item));
     createCategoryUpdateMutations.mutate({
       id: categoryId,
       ...initialData,
@@ -112,23 +75,9 @@ export const CategoryFrom: React.FC<CategoryFormProps> = ({
 
   const categoryIdForItems = initialData ? categoryId : categoryCreateId;
 
-  function submitItems(itemsData: CreateItemType) {
-    console.log(itemsData, "itemsData");
-    createItemMutation.mutate({
-      ...itemsData,
-      categoryId: categoryIdForItems,
-    });
-  }
-
   const label: string = initialData
-    ? "Edit Costing Data"
-    : "Create Costing Data";
-
-  const handleRemoveItem = (index: number) => {
-    const updatedItems = [...itemsData];
-    updatedItems.splice(index, 1);
-    setItemsData(updatedItems);
-  };
+    ? "Edit Category Data"
+    : "Create Category Data";
 
   return (
     <>
@@ -149,25 +98,8 @@ export const CategoryFrom: React.FC<CategoryFormProps> = ({
                       onSubmit={initialData ? handleEditSubmit : handleSubmit}
                       renderAfter={() => (
                         <>
-                          <div className="mb-5">
-                            {" "}
-                            <Separator />
-                          </div>
-                          <ArrayRenderer
-                            values={itemsData}
-                            onRemove={handleRemoveItem}
-                          />
-                          <ItemFromComponent
-                            initialItemsData={initialItemsData}
-                            categoryId={categoryId}
-                            itemsData={itemsData}
-                            setItemsData={setItemsData}
-                            initialItemsDataArray={initialItemsDataArray}
-                            setInitialItemsDataArray={setInitialItemsDataArray}
-                          />
                           <div className="flex justify-end">
                             <Button className="mt-3">Cancel</Button>
-
                             {createCategoryMutation.isPending ||
                             createCategoryUpdateMutations.isPending ? (
                               <Button
@@ -198,18 +130,10 @@ export const CategoryFrom: React.FC<CategoryFormProps> = ({
                       props={
                         initialData
                           ? {
-                              name: {
-                                label2:
-                                  "This will be displayed on your profile.",
-                                afterElement: <Separator />,
-                              },
+                              name: {},
                             }
                           : {
-                              name: {
-                                label2:
-                                  "This will be displayed on your profile.",
-                                afterElement: <Separator />,
-                              },
+                              name: {},
                             }
                       }
                     />
