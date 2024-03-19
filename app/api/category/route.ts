@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   try {
     // const { userId } = auth();
     const body = await req.json();
-    const { name } = body;
+    const { name , type } = body;
 
     // if (!userId) {
     //   return new NextResponse("Unauthorized", { status: 401 });
@@ -14,10 +14,14 @@ export async function POST(req: Request) {
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });
     }
+    if (!type) {
+      return new NextResponse("Type is required", { status: 400 });
+    }
 
     const Category = await prisma.category.create({
       data: {
         name,
+        type,
       },
     });
     return NextResponse.json(Category);

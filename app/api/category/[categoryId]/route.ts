@@ -31,7 +31,7 @@ export async function PATCH(
         // const { userId } = auth();
         const body = await req.json();
 
-        const { name } = body;
+        const { name , type } = body;
 
         // if(!userId){
         //     return new NextResponse("Unauthorized", { status: 401 });
@@ -39,6 +39,10 @@ export async function PATCH(
 
         if(!name){
             return new NextResponse("Name is required", { status: 400 });
+        }
+
+        if(!type){
+            return new NextResponse("Type is required", { status: 400 });
         }
 
         if(!params.categoryId){
@@ -50,7 +54,8 @@ export async function PATCH(
                 id: params.categoryId,
             },
             data:{
-                name
+                name,
+                type,
             }
         });
         return NextResponse.json(Category);

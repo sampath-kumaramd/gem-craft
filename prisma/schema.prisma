@@ -48,6 +48,7 @@ model Item {
 model Category {
   id        String   @id @default(uuid())
   name      String   @unique
+  type      ItemType 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   items     Item[]
