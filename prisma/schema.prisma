@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+enum ItemType {
+  GEM
+  PENDANT
+}
+
+enum ChainColor {
+  COLOR1
+  COLOR2
+  COLOR3
+  COLOR4
+  COLOR5
+}
+
+model Item {
+  id          String            @id @default(uuid())
+  type        ItemType
+  name        String
+  description String?
+  image       String?
+  price       Decimal?
+  stock       Int?
+  material    String[]
+  natural     Boolean
+  shape       String
+  texture     String
+  colors      String[]
+  weight      Decimal?
+  quantity    Int?
+  active      Boolean?
+  dimensions  String?
+  categoryId  String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  category    Category?         @relation(fields: [categoryId], references: [id])
+  jewelries   JewelryPosition[]
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  type      ItemType 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  items     Item[]
+}
+
+model Jewelry {
+  id          String            @id @default(uuid())
+  name        String?
+  description String?
+  status      String            @default("draft")
+  shareLink   String?
+  chainColor  ChainColor
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  userId      Int
+  positions   JewelryPosition[]
+}
+
+model JewelryPosition {
+  id        String        @id @default(uuid())
+  position  Int           @unique
+  itemId    String?       @unique
+  pendantId String?       @unique
+  jewelryId String
+  designId  String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  design    JewelryDesign @relation(fields: [designId], references: [id])
+  item      Item?         @relation(fields: [itemId], references: [id])
+  jewelry   Jewelry       @relation(fields: [jewelryId], references: [id])
+  rotation  Int           @default(0)
+}
+
+model JewelryDesign {
+  id          String            @id @default(uuid())
+  name        String
+  description String?
+  chainColor  ChainColor
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  userId      Int
+  positions   JewelryPosition[]
+}
+
+// here's a brief explanation of the entities in your Prisma schema:
+
+// Item: This represents an item that can be a gem or a pendant.
+//  It has properties like id, type, name, description, image, price, stock, 
+// material, natural, shape, texture, colors, weight, quantity, active, dimensions, 
+// categoryId, createdAt, updatedAt. It also has a relation to Category and JewelryPosition.
+
+// Category: This represents a category that an item can belong to. It has properties like id,
+//  name, createdAt, updatedAt. It also has a relation to Item.
+
+// Jewelry: This represents a piece of jewelry that a user can customize. It has properties like
+//  id, name, description, status, shareLink, chainColor, createdAt, updatedAt, userId.
+//  It also has a relation to JewelryPosition.
+
+// JewelryPosition: This represents a position on the jewelry where an item (gem or pendant) 
+// can be placed. It has properties like id, position, itemId, pendantId, jewelryId, designId,
+//  createdAt, updatedAt. It also has relations to JewelryDesign, Item, and Jewelry.
+
+// JewelryDesign: This represents a design of a piece of jewelry. It has properties like id, 
+// name, description, chainColor, createdAt, updatedAt, userId. It also has a relation to 
+// JewelryPosition.
+
+// ItemType: This is an enum that represents the type of an item. It can be a GEM or a PENDANT.
+
+// Each entity (model) in Prisma represents a table in your database. The properties of
+//  the models represent the columns of the table. The relations between the models represent 
+// the foreign key constraints in your database.
