@@ -30,6 +30,7 @@ const CategoryDataPage = () => {
     const formattedcategoryData: CategoryColumn[] = categoryData.map((item) => ({
       id: item.id,
       name: item.name,
+      type: item.type,
       createdAt: dateFormat(item.createdAt, "fullDate"),
     }));
 

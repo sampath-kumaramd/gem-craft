@@ -7,7 +7,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CategoryColumn } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Edit, Eye, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -16,12 +15,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { AlertModal } from "@/components/alert-modal";
 import { deleteCategory } from "@/hooks/category";
+import { ItemColumn } from "./columns";
 
 interface CellActionProps {
-  data: CategoryColumn;
+  data: ItemColumn;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+export const ItemCellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
@@ -29,21 +29,21 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const deletePostMutation = useMutation({
     mutationFn: deleteCategory,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["category"] });
+      queryClient.invalidateQueries({ queryKey: ["item"] });
       router.push("/category-data");
-      queryClient.setQueryData(["category"], data);
+      queryClient.setQueryData(["item"], data);
     },
     onError: () => {
-      toast.error("Error in deleting category");
-    },
+      toast.error("Error in deleting item");
+    }
   });
 
   const onDelete = (categoryId: string) => {
     deletePostMutation.mutate(categoryId);
     router.refresh();
-    toast.success("Category Deleted Successfully");
+    toast.success("Item Deleted Successfully");
     router.push(`/category-data`);
-    queryClient.setQueryData(["category"], data);
+    queryClient.setQueryData(["item"], data);
     setOpen(false);
   };
 

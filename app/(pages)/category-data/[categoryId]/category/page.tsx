@@ -6,19 +6,19 @@ import {  CreateItemType, getItems } from "@/hooks/items";
 import { CategoryPageComponent } from "../components/category-page";
 // import { CostingPageComponent } from "../components/costing-page";
 
-export function CostingPage  ({ params }: { params: { costingId: string } }){
+export function CostingPage  ({ params }: { params: { categoryId: string } }){
   const {
     status,
     error,
     data: costingById,
   } = useQuery({
-    queryKey: ["costingById", params.costingId],
-    queryFn: () => getCategoryById(params.costingId),
+    queryKey: ["costingById", params.categoryId],
+    queryFn: () => getCategoryById(params.categoryId),
   });
 
   const {data: ItemsData} = useQuery({
-    queryKey: ["getItems", params.costingId],
-    queryFn: () => getItems(params.costingId),
+    queryKey: ["getItems", params.categoryId],
+    queryFn: () => getItems(params.categoryId),
   });
 
   const itemData:CreateItemType[] = [];

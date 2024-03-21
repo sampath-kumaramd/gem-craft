@@ -8,6 +8,7 @@ import CheckBoxField from "./check-box-field"
 import SelectField from "./select-field"
 import ColorField from "./color-field"
 import e from "express"
+import ItemSelectField from "./item-select-field"
 
 export const descriptionSchema = createUniqueFieldSchema(
     z.string(),
@@ -24,8 +25,20 @@ export const categorySchema = createUniqueFieldSchema(
     "category" 
 )
 
+export const itemTypeSelectSchema = createUniqueFieldSchema(
+    z.string(),
+    "itemTypeSelect" 
+)
+
+const optionSchema = z.object({
+    label: z.string(),
+    value: z.string(),
+    disable: z.boolean().optional(),
+  });
+
+
 export const colorSelectSchema = createUniqueFieldSchema(
-    z.array(z.string()),
+    z.array(optionSchema).min(1),
     "colorSelect" 
 )
 
@@ -48,25 +61,28 @@ export const optionalProjectSchema = createUniqueFieldSchema(
     "optional projectData" 
 )
 export const optionalColorSelectSchema = createUniqueFieldSchema(
-    z.array(z.string()).optional(),
+    z.array(optionSchema).optional(),
     "optional colorSelect" 
 )
 
-
-
-
+export const optionalItemTypeSelectSchema = createUniqueFieldSchema(
+    z.string().optional(),
+    "optional itemTypeSelect" 
+)
 
 
 const mapping = [
     [z.string(), TextField],
     [z.number(), NumberField],
     [z.boolean(), CheckBoxField],
+    [itemTypeSelectSchema, ItemSelectField],
+    [optionalItemTypeSelectSchema, SelectField],
     [colorSelectSchema, ColorField],
     [imageUploadSchema, ImageUploadField],
     [categorySchema, SelectField],
     [optionalImageUploadSchema, ImageUploadField],
     [optionalcategorySchema, SelectField],
-    [optionalColorSelectSchema, ColorField],
+    [optionalColorSelectSchema, ItemSelectField],
 ] as const 
 
 

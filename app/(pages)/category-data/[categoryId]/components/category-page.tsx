@@ -35,11 +35,11 @@ export const CategoryPageComponent: React.FC<CategoryDataFormProps> = ({
                   <div className="relative">
                     <Button onClick={() => router.push("items/new")}>
                       <Plus className="mr-2 h-4 w-4" />
-                      Add New
+                      Add New Item
                     </Button>
 
-                    <div className="mb-5 flex text-2xl font-semibold tracking-tight">
-                      Name Of Costing Data:
+                    <div className="mb-5 flex text-2xl font-semibold tracking-tight mt-8">
+                      Items in {initialData.name} Category
                       {/* {initialData.name}{" "} */}
                       <p
                         onClick={() =>
