@@ -1,6 +1,6 @@
 import { useTsController } from "@ts-react/form";
 import ImageUpload from "./image-upload";
-import { CreateFile } from "@/hooks/file";
+import { CreateItemType, ItemType } from "@/hooks/items";
 
 export default function TextField({
   label,
@@ -11,9 +11,16 @@ export default function TextField({
 }) {
   const { field } = useTsController<string>();
 
-  let file: CreateFile = {
-    imageUrl: "",
+  let itemData: CreateItemType = {
     name: "",
+    categoryId: "",
+    type: ItemType.GEM,
+    material: [],
+    natural: false,
+    shape: "",
+    texture: "",
+    colors: [],
+    image:''
   };
 
   return (
@@ -25,9 +32,9 @@ export default function TextField({
       <ImageUpload
         value={field.value ? [field.value] : []}
         onChange={(url) => {
-          file.imageUrl = url.url;
-          file.name = url.name;
-          field.onChange(file.imageUrl);
+          itemData.image = url.url;
+          itemData.name = url.name;
+          field.onChange(itemData.image);
         }}
         onRemove={() => field.onChange("")}
       />

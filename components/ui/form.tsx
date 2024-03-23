@@ -9,6 +9,7 @@ import SelectField from "./select-field"
 import ColorField from "./color-field"
 import e from "express"
 import ItemSelectField from "./item-select-field"
+import TextAreaField from "./text-area-field"
 
 export const descriptionSchema = createUniqueFieldSchema(
     z.string(),
@@ -83,6 +84,7 @@ const mapping = [
     [optionalImageUploadSchema, ImageUploadField],
     [optionalcategorySchema, SelectField],
     [optionalColorSelectSchema, ItemSelectField],
+    [descriptionSchema, TextAreaField]
 ] as const 
 
 

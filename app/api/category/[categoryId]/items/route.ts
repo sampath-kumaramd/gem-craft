@@ -8,6 +8,7 @@ export async function POST(
 ) {
   try {
     // const { userId } = auth();
+
     const body = await req.json();
     const {
       name,
@@ -30,6 +31,10 @@ export async function POST(
     // if (!userId) {
     //   return new NextResponse("Unauthorized", { status: 401 });
     // }
+
+    // Check if the category exists
+ 
+    
 
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });

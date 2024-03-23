@@ -6,8 +6,12 @@ import { Item } from "@prisma/client";
 import { optional, z } from "zod";
 import TSForm, {
   colorSelectSchema,
+  descriptionSchema,
+  imageUploadSchema,
   itemTypeSelectSchema,
   optionalColorSelectSchema,
+  optionalDescriptionSchema,
+  optionalImageUploadSchema,
   optionalItemTypeSelectSchema,
 } from "@/components/ui/form";
 import { CreateItemType, EditItem, ItemType, createItem, deleteItems } from "@/hooks/items";
@@ -28,10 +32,21 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
   itemId,
 }) => {
   const itemSchema = z.object({
+    type: itemTypeSelectSchema,
     name: z.string().describe("Name // sample name"),
+
+    description: descriptionSchema,
+    image: imageUploadSchema,
+    price: z.number().describe("Price // sample price"),
+    stock: z.string().describe("Stock // sample stock"),
+    material: z.string().describe("Material // sample material"),
+    weight: z.number().describe("Weight // sample weight"),
+    quantity: z.number().describe("Quantity // sample quantity"),
+    dimensions: z.string().describe("Dimensions // sample dimensions"),
+
     shape: z.string().describe(" Shape // sample name"),
     texture: z.string().describe("Texture // sample name"),
-    type: itemTypeSelectSchema,
+
     // colors: colorSelectSchema,
     // material: z.array(z.string()).describe("Materials // sample name"),
     //
@@ -39,11 +54,21 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
   });
 
   const optionalItemSchema = z.object({
+    type: optionalItemTypeSelectSchema,
     name: z.string().optional().describe("Name // sample name"),
+
+    description: optionalDescriptionSchema,
+    image: optionalImageUploadSchema,
+    price: z.number().optional().describe("Price // sample price"),
+    stock: z.string().optional().describe("Stock // sample stock"),
+    material: z.string().optional().describe("Material // sample material"),
+    weight: z.number().optional().describe("Weight // sample weight"),
+    quantity: z.number().optional().describe("Quantity // sample quantity"),
+    dimensions: z.string().optional().describe("Dimensions // sample dimensions"),
+
     shape: z.string().optional().describe(" Shape // sample name"),
     texture: z.string().optional().describe("Texture // sample name"),
     colors: optionalColorSelectSchema,
-    type:optionalItemTypeSelectSchema,
     // material: z
     //   .array(z.string())
     //   .optional()
@@ -77,7 +102,7 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
       queryClient.setQueryData(["category"], data);
       queryClient.invalidateQueries({ queryKey: ["category"], exact: true });
       router.refresh();
-      router.push(`/category-data`);
+      router.push(`/category-data/${categoryId}/category`);
       toast.success("item Created Successfully");
     },
   });
@@ -114,9 +139,6 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
     router.push("/category-data");
   };
 
-
-
-
   function handleSubmit(data: CreateItemType) {
     itemData.colors = ["red", "blue", "green", "yellow", "black", "white", "brown", "orange", "purple", "pink", "gray", "gold"]
     itemData.name = data.name;
@@ -126,6 +148,8 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
     itemData.natural = data.natural;
     itemData.shape = data.shape;
     itemData.texture = data.texture;
+    itemData.active = true
+    itemData.image = data.image
     console.log("handleSubmit", data);
     console.log(itemData);
 
@@ -139,6 +163,10 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
       natural: data.natural,
       shape: data.shape,
       texture: data.texture,
+      categoryId: itemData.categoryId,
+      active:itemData.active,
+      image:data.image
+      
     });
 
   }
@@ -176,63 +204,63 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
                       props={
                         initialData
                           ? {
-                              name: {
-                                label2: "gems name.",
-                                afterElement: <Separator />,
-                              },
-                              // material: {
-                              //   label2: "",
-                              //   afterElement: <Separator />,
-                              // },
-                              natural: {
-                                // label2: "",
-                                afterElement: <Separator />,
-                              },
-                              shape: {
-                                label2: "",
-                                afterElement: <Separator />,
-                              },
-                              texture: {
-                                label2: "",
-                                afterElement: <Separator />,
-                              },
-                              type: {
-                                data:{data:itemType}
-                              }
-                              // colors: {
-                              //   label2: "",
-                              //   afterElement: <Separator />,
-                              // },
+                            name: {
+                              label2: "gems name.",
+                              afterElement: <Separator />,
+                            },
+                            // material: {
+                            //   label2: "",
+                            //   afterElement: <Separator />,
+                            // },
+                            natural: {
+                              // label2: "",
+                              afterElement: <Separator />,
+                            },
+                            shape: {
+                              label2: "",
+                              afterElement: <Separator />,
+                            },
+                            texture: {
+                              label2: "",
+                              afterElement: <Separator />,
+                            },
+                            type: {
+                              data: { data: itemType }
                             }
+                            // colors: {
+                            //   label2: "",
+                            //   afterElement: <Separator />,
+                            // },
+                          }
                           : {
-                              name: {
-                                label2: "gems name.",
-                                afterElement: <Separator />,
-                              },
-                              // material: {
-                              //   label2: "",
-                              //   afterElement: <Separator />,
-                              // },
-                              // natural: {
-                              //   // label2: "",
-                              //   afterElement: <Separator />,
-                              // },
-                              shape: {
-                                label2: "shape of the gem.",
-                                afterElement: <Separator />,
-                              },
-                              texture: {
-                                label2: " texture of the gem.",
-                                afterElement: <Separator />,
-                              },
-                               type: {
-                                data:{data:itemType}
-                              }
-                              // colors: {
-                              //   label2: " colors of the gem.",
-                              //   afterElement: <Separator />,
-                              // },
+                            name: {
+                              label2: "gems name.",
+                              afterElement: <Separator />,
+                            },
+                            // material: {
+                            //   label2: "",
+                            //   afterElement: <Separator />,
+                            // },
+                            // natural: {
+                            //   // label2: "",
+                            //   afterElement: <Separator />,
+                            // },
+                            shape: {
+                              label2: "shape of the gem.",
+                              afterElement: <Separator />,
+                            },
+                            texture: {
+                              label2: " texture of the gem.",
+                              afterElement: <Separator />,
+                            },
+                            type: {
+                              data: { data: itemType }
                             }
+                            // colors: {
+                            //   label2: " colors of the gem.",
+                            //   afterElement: <Separator />,
+                            // },
+                          }
                       }
                     />
                   </div>

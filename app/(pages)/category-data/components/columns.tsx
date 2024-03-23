@@ -33,7 +33,18 @@ export const columns: ColumnDef<CategoryColumn>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Date",
+    header: "created At",
+    cell: ({ row }) => {
+      const dateStr = row.getValue("createdAt") as string;
+      const date = new Date(dateStr);
+      const formattedDate = new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: '2-digit'
+      }).format(date);
+  
+      return <div>{formattedDate}</div>;
+    },
   },
   {
     id: "actions",
