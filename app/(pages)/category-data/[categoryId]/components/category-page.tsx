@@ -3,7 +3,7 @@
 import { Sidebar } from "@/components/sidebar";
 import { Category } from "@prisma/client";
 import { Item } from "@prisma/client";
-import { columns } from "./columns";
+import { ItemColumn, columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
 import { Edit, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -22,7 +22,10 @@ export const CategoryPageComponent: React.FC<CategoryDataFormProps> = ({
   if (initialItemsData === undefined) {
     return <div>loading</div>;
   }
-
+  const processedData: ItemColumn[] = initialItemsData.map(item => ({
+    ...item,
+    categoryId: item.categoryId || '', // if categoryId is null, use an empty string
+  }));
   return (
     <>
       <div className="hidden md:block">
@@ -50,7 +53,7 @@ export const CategoryPageComponent: React.FC<CategoryDataFormProps> = ({
                       </p>
                     </div>
                     <div className="mb-5 mt-5">List of Items Data</div>
-                    <DataTable columns={columns} data={initialItemsData} />
+                    <DataTable columns={columns} data={processedData} />
                   </div>
                 </div>
               </div>

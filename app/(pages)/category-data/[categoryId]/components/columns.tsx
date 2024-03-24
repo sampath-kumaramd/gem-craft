@@ -9,6 +9,7 @@ import { ArrowUpDown } from "lucide-react";
 export type ItemColumn = {
   id: string;
   name: string;
+  categoryId:string
 };
 
 export const columns: ColumnDef<ItemColumn>[] = [

@@ -84,7 +84,8 @@ const mapping = [
     [optionalImageUploadSchema, ImageUploadField],
     [optionalcategorySchema, SelectField],
     [optionalColorSelectSchema, ItemSelectField],
-    [descriptionSchema, TextAreaField]
+    [descriptionSchema, TextAreaField],
+    [optionalDescriptionSchema, TextAreaField]
 ] as const 
 
 

@@ -26,6 +26,25 @@ export interface CreateItemType {
   categoryId?: string;
 }
 
+interface DeleteResponse {
+  type: ItemType;
+  name: string;
+  description?: string;
+  image?: string;
+  price?: number;
+  stock?: number;
+  material: string[];
+  natural: boolean;
+  shape: string;
+  texture: string;
+  colors: string[];
+  weight?: number;
+  quantity?: number;
+  active?: boolean;
+  dimensions?: string;
+  categoryId?: string;
+}
+
 export interface InitialItemType extends CreateItemType {
 }
 
@@ -56,7 +75,7 @@ export async function updateItem(data: EditItem) {
   return response.json();
 }
 
-export async function deleteItem(id: string, categoryId: string) {
+export async function deleteItem ([id, categoryId]: [string, string]): Promise<DeleteResponse> {
   const response = await fetch(`/api/category/${categoryId}/items/${id}`, {
     method: "DELETE",
   });

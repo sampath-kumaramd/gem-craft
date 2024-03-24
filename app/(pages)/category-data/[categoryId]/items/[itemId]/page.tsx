@@ -16,7 +16,7 @@ export function ItemPage({
     data: categoryById,
   } = useQuery({
     queryKey: ["categoryById", params.categoryId],
-    queryFn: () => getItemById(params.categoryId, params.itemId),
+    queryFn: () => getItemById(params.itemId ,params.categoryId),
   });
 
   if (status === "pending") {

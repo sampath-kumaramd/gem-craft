@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 import { AlertModal } from "@/components/alert-modal";
 import { deleteCategory } from "@/hooks/category";
 import { ItemColumn } from "./columns";
+import { deleteItem } from "@/hooks/items";
 
 interface CellActionProps {
   data: ItemColumn;
@@ -27,23 +28,28 @@ export const ItemCellAction: React.FC<CellActionProps> = ({ data }) => {
   const queryClient = useQueryClient();
 
   const deletePostMutation = useMutation({
-    mutationFn: deleteCategory,
+    mutationFn: deleteItem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["item"] });
-      router.push("/category-data");
       queryClient.setQueryData(["item"], data);
+      router.push(`/category-data/${data.categoryId}/items`);
     },
     onError: () => {
       toast.error("Error in deleting item");
     }
   });
 
-  const onDelete = (categoryId: string) => {
-    deletePostMutation.mutate(categoryId);
+  const onDelete = (id: string, categoryId?: string) => {
+    if (!categoryId) {
+      toast.error("Category ID is missing");
+      return;
+    }
+    
+    deletePostMutation.mutate([id, categoryId]);
     router.refresh();
-    toast.success("Item Deleted Successfully");
-    router.push(`/category-data`);
+    // router.push(`/category-data/${categoryId}/items`);
     queryClient.setQueryData(["item"], data);
+    toast.success("Item Deleted Successfully");
     setOpen(false);
   };
 
@@ -54,6 +60,7 @@ export const ItemCellAction: React.FC<CellActionProps> = ({ data }) => {
         onClose={() => setOpen(false)}
         onConfirm={onDelete}
         id={data.id}
+        categoryId={data.categoryId}
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -65,13 +72,13 @@ export const ItemCellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => router.push(`/category-data/${data.id}/category`)}
+            onClick={() => router.push(`/category-data/${data.categoryId}/items/item/${data.id}`)}
           >
             <Eye className="mr-2 h-4 w-4" />
-            View
+            Views
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/category-data/${data.id}`)}
+            onClick={() => router.push(`/category-data/${data.categoryId}/items/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4" />
             Update

@@ -19,6 +19,7 @@ import { Sidebar } from "@/components/sidebar";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 
 interface ItemsFormProps {
   initialData: Item;
@@ -34,7 +35,6 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
   const itemSchema = z.object({
     type: itemTypeSelectSchema,
     name: z.string().describe("Name // sample name"),
-
     description: descriptionSchema,
     image: imageUploadSchema,
     price: z.number().describe("Price // sample price"),
@@ -43,14 +43,13 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
     weight: z.number().describe("Weight // sample weight"),
     quantity: z.number().describe("Quantity // sample quantity"),
     dimensions: z.string().describe("Dimensions // sample dimensions"),
-
     shape: z.string().describe(" Shape // sample name"),
     texture: z.string().describe("Texture // sample name"),
+    natural: z.boolean().describe("Natural // sample name"),
 
     // colors: colorSelectSchema,
     // material: z.array(z.string()).describe("Materials // sample name"),
     //
-    natural: z.boolean().describe("Natural // sample name"),
   });
 
   const optionalItemSchema = z.object({
@@ -102,7 +101,7 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
       queryClient.setQueryData(["category"], data);
       queryClient.invalidateQueries({ queryKey: ["category"], exact: true });
       router.refresh();
-      router.push(`/category-data/${categoryId}/category`);
+      router.push(`/category-data/${categoryId}/items`);
       toast.success("item Created Successfully");
     },
   });
@@ -164,9 +163,9 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
       shape: data.shape,
       texture: data.texture,
       categoryId: itemData.categoryId,
-      active:itemData.active,
-      image:data.image
-      
+      active: itemData.active,
+      image: data.image
+
     });
 
   }
@@ -191,15 +190,47 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
                       //@ts-ignore
                       onSubmit={initialData ? handleSubmit : handleSubmit}
                       renderAfter={() => (
-                        <div className="flex justify-end">
-                          <Button className="mt-3">Cancel</Button>
-                          <Button className="mx-2 mt-3" type="submit">
-                            Create item Data
-                          </Button>
-                        </div>
+                        <>
+                          <div className="flex justify-end">
+                            <Button className="mt-3" onClick={handleCancel}>Cancel</Button>
+                            {createCategoryMutation.isPending ||
+                            createCategoryMutation.isPending ? (
+                              <Button
+                                disabled
+                                className="mx-2 mt-3"
+                                type="submit"
+                              >
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                {label}
+                              </Button>
+                            ) : (
+                              <Button className="mx-2 mt-3" type="submit">
+                                {label}
+                              </Button>
+                            )}
+                          </div>
+                        </>
                       )}
                       renderBefore={() => <></>}
-                      defaultValues={{}}
+                      defaultValues={
+                        initialData
+                          ? {
+                            name: initialData.name,
+                            type: initialData.type,
+                            // description: initialData.description,
+                            // image: initialData.image,
+                            // price: initialData.price?.toNumber,
+                            // stock:initialData.stock,
+                            // material: initialData.material,
+                            weight:initialData.weight?.toNumber(),
+                            // quantity: initialData.quantity,
+                            // dimensions: initialData.dimensions,
+                            shape:initialData.shape,
+                            texture:initialData.texture,
+                            natural: initialData.natural
+                          }
+                          :
+                          {}}
                       //@ts-ignore
                       props={
                         initialData

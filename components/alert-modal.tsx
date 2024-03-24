@@ -17,8 +17,9 @@ import {
 interface AlertModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (projectId: string) => void;
+  onConfirm: (id: string , categoryId?:string) => void;
   id: string;
+  categoryId?: string;
 }
 
 export const AlertModal: React.FC<AlertModalProps> = ({
@@ -26,6 +27,7 @@ export const AlertModal: React.FC<AlertModalProps> = ({
   onClose,
   onConfirm,
   id,
+  categoryId,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -48,7 +50,7 @@ export const AlertModal: React.FC<AlertModalProps> = ({
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button variant="destructive" onClick={() => onConfirm(id)}>
+          <Button variant="destructive" onClick={() => onConfirm(id, categoryId)}>
             Continue
           </Button>
         </DialogFooter>
