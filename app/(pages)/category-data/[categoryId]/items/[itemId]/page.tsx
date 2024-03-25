@@ -1,15 +1,16 @@
 "use client";
 
+import React from 'react';
 import { getCategoryById } from "@/hooks/category";
 import { useQuery } from "@tanstack/react-query";
 import { ItemsFrom } from "./item-form";
 import { getItemById } from "@/hooks/items";
 
-export function ItemPage({
-  params,
-}: {
+interface ItemPageProps {
   params: { categoryId: string; itemId: string };
-}) {
+}
+
+const ItemPage: React.FC<ItemPageProps> = ({ params }) => {
   const {
     status,
     error,

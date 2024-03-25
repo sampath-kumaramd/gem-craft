@@ -6,7 +6,11 @@ import {  CreateItemType, getItems } from "@/hooks/items";
 import { CategoryPageComponent } from "../components/category-page";
 // import { CostingPageComponent } from "../components/costing-page";
 
-export function CostingPage  ({ params }: { params: { categoryId: string } }){
+interface CategoryPageProps {
+  params: { categoryId: string };
+}
+
+const CostingPage: React.FC<CategoryPageProps> = ({ params }) => {
   const {
     status,
     error,

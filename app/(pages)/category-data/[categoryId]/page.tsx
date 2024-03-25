@@ -1,10 +1,15 @@
 "use client";
 
+import React from 'react';
 import { getCategoryById } from "@/hooks/category";
 import { useQuery } from "@tanstack/react-query";
 import { CategoryFrom } from "./components/category-form";
 
-export function CategoryPage({ params }: { params: { categoryId: string } }) {
+interface CategoryPageProps {
+  params: { categoryId: string };
+}
+
+const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
   const {
     status,
     error,
