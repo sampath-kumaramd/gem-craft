@@ -27,7 +27,7 @@ const CostingPage: React.FC<CategoryPageProps> = ({ params }) => {
 
   const itemData:CreateItemType[] = [];
   if (status === "pending") {
-    return <div>Loading...</div>;
+    return <div>Loading..</div>;
   }
   if (status === "error") {
     return <div> {JSON.stringify(error)} </div>;
