@@ -1,4 +1,4 @@
-import { Item } from "@prisma/client";
+import { Category, Item } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 import axios from "axios";
 
@@ -50,6 +50,10 @@ export interface InitialItemType extends CreateItemType {
 
 export interface EditItem extends CreateItemType {
   id?: string;
+}
+
+export async function getAllItems(){
+  return axios.get<Item[]>('/api/items').then((res) => res.data);
 }
 
 export function getItems(categoryId:string) {
