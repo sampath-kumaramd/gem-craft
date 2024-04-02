@@ -1,7 +1,7 @@
 export const cardsData = [
   {
     id: 0,
-    title: "Component Librarys",
+    title: "Beads",
     components: [
       {
         id: 100,
@@ -15,21 +15,33 @@ export const cardsData = [
   },
   {
     id: 1,
-    title: "Javascript Librarys",
-    components: [
-      {
-        id: 300,
-        name: "react"
-      },
-      {
-        id: 400,
-        name: "node"
-      },
-    ]
+    title: "Center Div 1",
+    components: []
   },
   {
     id: 2,
-    title: "react helping Librarys",
+    title: "Center Div 2",
+    components: []
+  },
+  {
+    id: 3,
+    title: "Center Div 3",
+    components: []
+  },
+  {
+    id: 4,
+    title: "Center Div 4",
+    components: []
+  },
+  {
+    id: 5,
+    title: "Center Div 5",
+    components: []
+  },
+
+  {
+    id: 6,
+    title: "pendants",
     components: [
       {
         id: 500,
@@ -41,6 +53,7 @@ export const cardsData = [
       },
     ]
   }
+
 
 
 ]

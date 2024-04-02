@@ -14,9 +14,9 @@ const CostingPage: React.FC<CategoryPageProps> = ({ params }) => {
   const {
     status,
     error,
-    data: costingById,
+    data: categoryId,
   } = useQuery({
-    queryKey: ["costingById", params.categoryId],
+    queryKey: ["categoryId", params.categoryId],
     queryFn: () => getCategoryById(params.categoryId),
   });
 
@@ -36,7 +36,7 @@ const CostingPage: React.FC<CategoryPageProps> = ({ params }) => {
   return (
     <div className="flex-col">
       <div className="flex-1 ">
-        <CategoryPageComponent initialData={costingById} initialItemsData={ItemsData}  />
+        <CategoryPageComponent initialData={categoryId} initialItemsData={ItemsData}  />
       </div>
     </div>
   );

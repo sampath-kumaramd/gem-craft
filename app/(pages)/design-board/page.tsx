@@ -1,12 +1,12 @@
-"use client";
-import Image from "next/image";
-import styles from "./page.module.css";
-import DndExample from "@/components/DndExample";
-import { useEffect } from "react";
-import { getAllItems } from "@/hooks/items";
-import { useQuery } from "@tanstack/react-query";
+"use client"
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import Card from './card'
+import { useQuery } from '@tanstack/react-query';
+import { getAllItems } from '@/hooks/items';
 
-export default function Home() {
+export default function ParentComponent() {
+
   const {
     status,
     error,
@@ -16,12 +16,14 @@ export default function Home() {
     queryFn: getAllItems,
   });
 
-  
   if (status === "success") {
     console.log(allItems.flat());
   }
+
   return (
-    // <DndExample />
+    // <DndProvider backend={HTML5Backend}>
+    //   <Card isDragging={false} text="Example text" />
+    // </DndProvider>
     <div>hi</div>
-  );
+  )
 }
