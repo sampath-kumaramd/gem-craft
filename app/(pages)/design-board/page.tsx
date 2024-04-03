@@ -3,11 +3,14 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import DndExample from "@/components/DndExample";
 import { useEffect, useState } from "react";
-import { getAllItems } from "@/hooks/items";
+import { ItemType, getAllItems } from "@/hooks/items";
 import { useQuery } from "@tanstack/react-query";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { SignOutButton, UserButton } from "@clerk/nextjs";
+import ItemCard from "@/components/item-card";
+import Link from "next/link";
 
 export default function Home() {
   const {
@@ -91,12 +94,13 @@ export default function Home() {
       // </>
 
       <>
-        <div className="flex justify-center space-x-6 my-4">
+        <div className="flex justify-center items-center space-x-6 my-4">
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <span className=" text-lg">Gem Caft</span>
+          {/* <UserButton /> */}
+          <span className=" text-2xl">Gem Caft</span>
         </div>
         <Separator />
         <div className=" grid space-x-4 grid-cols-12 mx-16 mt-16 ">
@@ -113,7 +117,16 @@ export default function Home() {
             </div>
             <div className="text-4xl mt-12">Beads</div>
             <div className=" border-dashed w-full h-[50vh] border-2">
-              ji
+              <div className=" p-4 flex space-x-4">
+                {allItems.flat().map((item) => {
+                  if (item.type === "GEM") {
+                    return (
+                      <ItemCard key={item.id} item={item} />
+                    )
+                  }
+                })}
+              </div>
+
             </div>
           </div>
           <div className=" col-span-6 space-y-8 text-center items-center">
@@ -147,7 +160,15 @@ export default function Home() {
               })}</div>
             <div className="text-4xl mt-12">Drops, Links, pendants</div>
             <div className=" border-dashed w-full h-[50vh] border-2">
-              ji
+              <div className=" p-4">
+                {allItems.flat().map((item) => {
+                  if (item.type === "PENDANT") {
+                    return (
+                      <ItemCard key={item.id} item={item} />
+                    )
+                  }
+                })}
+              </div>
             </div>
           </div>
         </div>
@@ -161,6 +182,8 @@ export default function Home() {
           them on the chain, we will make
           them inline. If you place them
           under the chain, we will dangle them.</div>
+        <div className=" flex justify-center">        <Link href="/category-data"> <Button className="mx-16"> Inventory </Button></Link></div>
+
       </>
     );
   }
