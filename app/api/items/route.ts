@@ -8,7 +8,7 @@ export async function GET(req: Request) {
     const categories = await prisma.category.findMany();
     const categoriesWithItems = await Promise.all(
       categories.map(async (category) => {
-        return axios.get<Item[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/${category.id}/items`) 
+        return axios.get<Item[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/${category.id}/items`)
           .then((res) => res.data)
           .catch((err) => {
             console.error('[GET_CATEGORY_ITEMS]', err);
