@@ -20,7 +20,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
   });
 
   if (status === "pending") {
-    return <div>Loading...</div>;
+    return <div>Loading... </div>;
   }
   if (status === "error") {
     return <div> {JSON.stringify(error)} </div>;
