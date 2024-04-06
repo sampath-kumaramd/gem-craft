@@ -14,7 +14,7 @@ export default function TextField({
   let itemData: CreateItemType = {
     name: "",
     categoryId: "",
-    type: ItemType.GEM,
+    type: ItemType.BEADS,
     material: [],
     natural: false,
     shape: "",
