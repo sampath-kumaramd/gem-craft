@@ -1,7 +1,5 @@
 "use client";
 import Image from "next/image";
-import styles from "./page.module.css";
-import DndExample from "@/components/DndExample";
 import { useEffect, useState } from "react";
 import { ItemType, getAllItems } from "@/hooks/items";
 import { useQuery } from "@tanstack/react-query";
