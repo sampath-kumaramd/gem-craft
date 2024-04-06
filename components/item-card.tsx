@@ -7,6 +7,8 @@ import {
 import Image from 'next/image'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from './ui/resizable'
 import { RefreshCcw } from 'lucide-react'
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from './ui/context-menu'
+import { Slider } from './ui/slider'
 
 type Props = {
     item: Item,
@@ -31,10 +33,10 @@ function ItemCard({ item, draggable, onDragStart, onDragEnd }: Props) {
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
         >
-            <CardContent 
+            <CardContent
                 className='p-0 items-center flex justify-center align-middle relative'
-                onMouseEnter={() => {setIsHovered(true); setIconWidth(20);}}  // Modify this line
-                onMouseLeave={() => {setIsHovered(false); setIconWidth(10);}}  // And this line
+                onMouseEnter={() => { setIsHovered(true); setIconWidth(20); }}  // Modify this line
+                onMouseLeave={() => { setIsHovered(false); setIconWidth(10); }}  // And this line
             >
                 <Image
                     draggable="false"
@@ -44,7 +46,7 @@ function ItemCard({ item, draggable, onDragStart, onDragEnd }: Props) {
                     height={0}
                     sizes="100vw"
                     style={{ width: '100%', height: 'auto', transform: `rotate(${rotation}deg)` }} />
-                {isHovered && <button className=' absolute -mt-12 ml-10' onClick={rotateImage}><RefreshCcw width={iconWidth}/></button>} 
+                {isHovered && <button className=' absolute -mt-12 ml-10' onClick={rotateImage}><RefreshCcw width={iconWidth} /></button>}
             </CardContent>
         </Card>
     )

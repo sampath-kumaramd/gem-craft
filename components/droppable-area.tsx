@@ -5,9 +5,10 @@ import { Item } from '@prisma/client';
 type Props = {
     allItems: Item[];
     className?: string;
+    onItemDropped: (item: Item) => void 
 }
 
-function DroppableArea({ allItems, className }: Props) {
+function DroppableArea({ allItems, className, onItemDropped }: Props) {
     const [droppedItem, setDroppedItem] = useState<Item | null>(null);
 
     return (
@@ -17,13 +18,11 @@ function DroppableArea({ allItems, className }: Props) {
             }}
             onDrop={(e) => {
                 e.preventDefault();
-                // Get the id of the item being dragged
                 const itemId = e.dataTransfer.getData('text/plain');
-                // Find the item in your state using the id
                 const item = allItems.flat().find(item => item.id === itemId);
-                // Set the dropped item
                 if (item) {
                     setDroppedItem(item);
+                    onItemDropped(item); // Call the callback function with the dropped item
                 }
             }}
         >
