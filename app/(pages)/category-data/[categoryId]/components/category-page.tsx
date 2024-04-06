@@ -1,13 +1,14 @@
 "use client";
 
 import { Sidebar } from "@/components/sidebar";
+import { Button } from "@/components/ui/button";
+import { DataTable } from "@/components/ui/data-table";
+
 import { Category } from "@prisma/client";
 import { Item } from "@prisma/client";
-import { ItemColumn, columns } from "./columns";
-import { DataTable } from "@/components/ui/data-table";
-import { Edit, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { ItemColumn, columns } from "./columns";
+import { Edit, Plus } from "lucide-react";
 
 interface CategoryDataFormProps {
   initialData: Category;
@@ -24,7 +25,7 @@ export const CategoryPageComponent: React.FC<CategoryDataFormProps> = ({
   }
   const processedData: ItemColumn[] = initialItemsData.map(item => ({
     ...item,
-    categoryId: item.categoryId || '', // if categoryId is null, use an empty string
+    categoryId: item.categoryId || '',
   }));
   return (
     <>
@@ -43,7 +44,6 @@ export const CategoryPageComponent: React.FC<CategoryDataFormProps> = ({
 
                     <div className="mb-5 flex text-2xl font-semibold tracking-tight mt-8">
                       Items in - {initialData.name}
-                      {/* {initialData.name}{" "} */}
                       <p
                         onClick={() =>
                           router.push(`/category-data/${initialData.id}`)

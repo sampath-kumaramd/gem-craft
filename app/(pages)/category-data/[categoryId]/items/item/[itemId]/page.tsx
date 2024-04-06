@@ -1,11 +1,9 @@
 "use client";
 
 import React from 'react';
-import { getCategoryById } from "@/hooks/category";
 import { useQuery } from "@tanstack/react-query";
 import { getItemById } from "@/hooks/items";
 import { Sidebar } from "@/components/sidebar";
-import { Edit } from "lucide-react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 

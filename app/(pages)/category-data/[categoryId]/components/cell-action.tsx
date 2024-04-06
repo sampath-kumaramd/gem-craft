@@ -8,15 +8,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Edit, Eye, MoreHorizontal, Trash } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { AlertModal } from "@/components/alert-modal";
+import { deleteItem } from "@/hooks/items";
+
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { AlertModal } from "@/components/alert-modal";
-import { deleteCategory } from "@/hooks/category";
 import { ItemColumn } from "./columns";
-import { deleteItem } from "@/hooks/items";
+import { useRouter } from "next/navigation";
+import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
 interface CellActionProps {
   data: ItemColumn;
@@ -44,10 +44,9 @@ export const ItemCellAction: React.FC<CellActionProps> = ({ data }) => {
       toast.error("Category ID is missing");
       return;
     }
-    
+
     deletePostMutation.mutate([id, categoryId]);
     router.refresh();
-    // router.push(`/category-data/${categoryId}/items`);
     queryClient.setQueryData(["item"], data);
     toast.success("Item Deleted Successfully");
     setOpen(false);
@@ -71,12 +70,6 @@ export const ItemCellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          {/* <DropdownMenuItem
-            onClick={() => router.push(`/category-data/${data.categoryId}/items/item/${data.id}`)}
-          >
-            <Eye className="mr-2 h-4 w-4" />
-            Views
-          </DropdownMenuItem> */}
           <DropdownMenuItem
             onClick={() => router.push(`/category-data/${data.categoryId}/items/${data.id}`)}
           >

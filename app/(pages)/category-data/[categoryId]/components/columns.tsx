@@ -1,9 +1,8 @@
 "use client";
 
-// import { Decimal } from "@prisma/client/runtime";
+import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ItemCellAction } from "./cell-action";
-import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 
 export type ItemColumn = {

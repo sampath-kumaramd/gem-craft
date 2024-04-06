@@ -4,7 +4,6 @@ import { getCategoryById } from "@/hooks/category";
 import { useQuery } from "@tanstack/react-query";
 import {  CreateItemType, getItems } from "@/hooks/items";
 import { CategoryPageComponent } from "../components/category-page";
-// import { CostingPageComponent } from "../components/costing-page";
 
 interface CategoryPageProps {
   params: { categoryId: string };

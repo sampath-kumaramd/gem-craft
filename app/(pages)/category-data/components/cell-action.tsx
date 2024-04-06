@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteCategory } from "@/hooks/category";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,15 +8,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CategoryColumn } from "./columns";
 import { Button } from "@/components/ui/button";
-import { Edit, Eye, MoreHorizontal, Trash } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import { AlertModal } from "@/components/alert-modal";
-import { deleteCategory } from "@/hooks/category";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Edit, Eye, MoreHorizontal, Trash } from "lucide-react";
+import { CategoryColumn } from "./columns";
 
 interface CellActionProps {
   data: CategoryColumn;

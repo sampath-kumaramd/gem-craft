@@ -1,10 +1,9 @@
 "use client";
 
 import React from 'react';
-import { getCategoryById } from "@/hooks/category";
 import { useQuery } from "@tanstack/react-query";
-import { ItemsFrom } from "./item-form";
 import { getItemById } from "@/hooks/items";
+import { ItemsFrom } from "./item-form";
 
 interface ItemPageProps {
   params: { categoryId: string; itemId: string };

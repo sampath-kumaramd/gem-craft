@@ -2,20 +2,18 @@
 
 import { Sidebar } from "@/components/sidebar";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { z } from "zod";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import TSForm, { itemTypeSelectSchema } from "@/components/ui/form";
+import { deleteItems } from "@/hooks/items";
+import { createCategory, EditCategory, updateCategory } from "@/hooks/category";
+
+import { Category } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { z } from "zod";
 import { Loader2 } from "lucide-react";
 import uniqid from "uniqid";
-import { createItem, CreateItemType, deleteItems } from "@/hooks/items";
-import { Category } from "@prisma/client";
-import TSForm, { itemTypeSelectSchema } from "@/components/ui/form";
-import { createCategory, EditCategory, updateCategory } from "@/hooks/category";
-import ArrayRenderer from "@/components/array-render";
-import { ItemFromComponent } from "./item-form-component";
+import toast from "react-hot-toast";
 
 interface CategoryFormProps {
   initialData: Category | null;
@@ -114,7 +112,7 @@ export const CategoryFrom: React.FC<CategoryFormProps> = ({
                           <div className="flex justify-end">
                             <Button className="mt-3" onClick={handleCancel}>Cancel</Button>
                             {createCategoryMutation.isPending ||
-                            createCategoryUpdateMutations.isPending ? (
+                              createCategoryUpdateMutations.isPending ? (
                               <Button
                                 disabled
                                 className="mx-2 mt-3"
@@ -135,22 +133,22 @@ export const CategoryFrom: React.FC<CategoryFormProps> = ({
                       defaultValues={
                         initialData
                           ? {
-                              name: initialData.name,
-                              type: initialData.type,
-                            }
+                            name: initialData.name,
+                            type: initialData.type,
+                          }
                           : {}
                       }
                       //@ts-ignore
                       props={
                         initialData
                           ? {
-                              name: {},
-                              type: {},
-                            }
+                            name: {},
+                            type: {},
+                          }
                           : {
-                              name: {},
-                              type: { data: itemType },
-                            }
+                            name: {},
+                            type: { data: itemType },
+                          }
                       }
                     />
                   </div>

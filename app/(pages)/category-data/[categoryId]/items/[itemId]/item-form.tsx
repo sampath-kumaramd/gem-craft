@@ -2,25 +2,21 @@
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Item } from "@prisma/client";
-import { optional, z } from "zod";
 import TSForm, {
-  colorSelectSchema,
   descriptionSchema,
   imageUploadSchema,
   itemTypeSelectSchema,
-  optionalColorSelectSchema,
-  optionalDescriptionSchema,
-  optionalImageUploadSchema,
-  optionalItemTypeSelectSchema,
 } from "@/components/ui/form";
-import { CreateItemType, EditItem, ItemType, createItem, deleteItems, updateItem } from "@/hooks/items";
 import { Sidebar } from "@/components/sidebar";
+import { CreateItemType, EditItem, ItemType, createItem, deleteItems, updateItem } from "@/hooks/items";
+
+import { useEffect } from "react";
+import { z } from "zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Item } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
-import { use, useEffect } from "react";
 
 interface ItemsFormProps {
   initialData: Item;
@@ -135,7 +131,7 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
   });
 
   function handleEditSubmit(initialData: EditItem) {
-   console.log("initialData edit data", initialData);
+    console.log("initialData edit data", initialData);
     createItemUpdateMutations.mutate({
       id: itemId,
       ...initialData,
@@ -158,7 +154,7 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
     itemData.name = data.name;
     itemData.categoryId = categoryId;
     itemData.type = data.type;
-    itemData.material =  ["gold", "silver", "platinum", "copper", "brass", "bronzess"];
+    itemData.material = ["gold", "silver", "platinum", "copper", "brass", "bronzess"];
     itemData.natural = data.natural;
     itemData.shape = data.shape;
     itemData.texture = data.texture;
@@ -209,7 +205,7 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
                       Create a items
                     </div>
                     <TSForm
-                      schema={  itemSchema}
+                      schema={itemSchema}
                       //@ts-ignore
                       onSubmit={initialData ? handleEditSubmit : handleSubmit}
                       renderAfter={() => (

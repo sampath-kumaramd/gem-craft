@@ -2,10 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { DataTable } from "@/components/ui/data-table";
+
+import { CategoryColumn, columns } from "./columns";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { CategoryColumn, columns } from "./columns";
-import { DataTable } from "@/components/ui/data-table";
 
 interface CostingClientProps {
   data: CategoryColumn[];
@@ -28,7 +29,7 @@ export const CategoryClient: React.FC<CostingClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
-          <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={data} />
     </>
   );
 };
