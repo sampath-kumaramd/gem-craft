@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-// import { Modal } from "@/components/ui/modal";
-import { Button } from "@/components/ui/button";
-import { Item } from "@prisma/client";
-import { InitialItemType, CreateItemType } from "@/hooks/items";
-import { Separator } from "@/components/ui/separator";
-import { z } from "zod";
-import TSForm from "@/components/ui/form";
-import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { z } from "zod";
+
+import TSForm from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import {CreateItemType } from "@/hooks/items";
+
 import { Dialog, DialogContent } from "./ui/dialog";
 
 interface FormModalProps {
@@ -21,8 +20,10 @@ interface FormModalProps {
 }
 
 export enum ItemType {
-  GEM,
-  PENDANT,
+  BEADS,
+  PENDANTS,
+  DROPS,
+  LINKS
 }
 export const FormModal: React.FC<FormModalProps> = ({
   isOpen,
@@ -41,20 +42,10 @@ export const FormModal: React.FC<FormModalProps> = ({
     return null;
   }
 
-  // name: "",
-  // categoryId: "",
-  // type: ItemType.GEM,
-  // material: [],
-  // natural: false,
-  // shape: "",
-  // texture: "",
-  // colors: []
   const itemSchema = z.object({
     name: z.string().describe("Item Name // sample name"),
     categoryId: z.string().describe("Category Id // sample id"),
-  //  type: z.enum([ItemType.GEM.toString(), ItemType.PENDANT.toString()]),
     material: z.array(z.string()),
-    // natural: z.boolean(),
     shape: z.string(),
     texture: z.string(),
     colors: z.array(z.string()),
@@ -63,7 +54,7 @@ export const FormModal: React.FC<FormModalProps> = ({
   const itemData: CreateItemType = {
     name: "",
     categoryId: "",
-    type: ItemType.GEM,
+    type: ItemType.BEADS,
     material: [],
     natural: false,
     shape: "",
@@ -72,8 +63,6 @@ export const FormModal: React.FC<FormModalProps> = ({
   };
 
   function handleSubmit(data: CreateItemType) {
-    console.log(data);
-    console.log(data.name, "aafads");
     if (data.name === "") {
       toast.error("Please enter name");
     } else {

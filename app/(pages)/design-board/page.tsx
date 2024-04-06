@@ -1,18 +1,20 @@
 "use client";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { ItemType, getAllItems } from "@/hooks/items";
-import { useQuery } from "@tanstack/react-query";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { SignOutButton, UserButton } from "@clerk/nextjs";
 import ItemCard from "@/components/item-card";
 import DroppableArea from "@/components/droppable-area";
-import Link from "next/link";
+import { getAllItems } from "@/hooks/items";
+
 import { Item } from "@prisma/client";
-import html2canvas from 'html2canvas';
+import { useQuery } from "@tanstack/react-query";
+
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { saveAs } from 'file-saver';
+import html2canvas from 'html2canvas';
 
 export default function Home() {
   const {
@@ -40,7 +42,6 @@ export default function Home() {
   }
 
   const handlClickOnRing = (chainSrc: string) => {
-    // Update the current chain image when the button is clicked
     setCurrentChainImage(chainSrc);
   }
 
@@ -71,7 +72,6 @@ export default function Home() {
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          {/* <UserButton /> */}
           <span className=" text-2xl">Gem Caft</span>
         </div>
         <Separator />

@@ -1,14 +1,11 @@
-import { Item } from '@prisma/client'
 import React, { DragEvent, useState } from 'react'
+import { Item } from '@prisma/client'
 import {
     Card,
     CardContent,
 } from "@/components/ui/card"
 import Image from 'next/image'
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from './ui/resizable'
 import { RefreshCcw } from 'lucide-react'
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from './ui/context-menu'
-import { Slider } from './ui/slider'
 
 type Props = {
     item: Item,

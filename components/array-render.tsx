@@ -1,8 +1,7 @@
-import { InitialItemType, CreateItemType } from "@/hooks/items";
 import React from "react";
-import { Button } from "./ui/button";
+import { CreateItemType } from "@/hooks/items";
+
 import { Trash } from "lucide-react";
-import { Trash2 } from "lucide-react";
 
 interface ArrayRendererProps {
   values: CreateItemType[] | CreateItemType[]; // Assuming your array contains numbers, change the type if needed

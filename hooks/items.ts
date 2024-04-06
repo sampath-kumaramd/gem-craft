@@ -1,12 +1,11 @@
-import { Category, Item } from "@prisma/client";
-import { Decimal } from "@prisma/client/runtime/library";
+import { Item } from "@prisma/client";
 import axios from "axios";
 
 export enum ItemType {
-  BEADS = "BEADS",
-  PENDANTS = "PENDANTS",
-  DROPS = "DROPS",
-  LINKS = "LINKS"
+  BEADS ,
+  PENDANTS ,
+  DROPS,
+  LINKS
 }
 
 export interface CreateItemType {

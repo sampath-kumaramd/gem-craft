@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import ItemCard from './item-card';
+
 import { Item } from '@prisma/client';
+import ItemCard from './item-card';
 
 type Props = {
     allItems: Item[];

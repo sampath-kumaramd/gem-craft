@@ -1,12 +1,13 @@
 "use client";
 
+import { getCategory } from "@/hooks/category";
 import { Sidebar } from "@/components/sidebar";
+import { Skeleton } from "@/components/ui/skeleton";
 import { CategoryClient } from "./components/client";
 import { CategoryColumn } from "./components/columns";
+
 import { useQuery } from "@tanstack/react-query";
 import dateFormat from "dateformat";
-import { getCategory } from "@/hooks/category";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const CategoryDataPage = () => {
   const {
@@ -24,7 +25,6 @@ const CategoryDataPage = () => {
         <div className="border-t">
           <div className="bg-background">
             <div className="grid lg:grid-cols-8">
-              {/* <Skeleton className="hidden lg:block h-[99vh] " /> */}
               <div className=" lg:block h-[99vh] flex flex-col space-y-5">
                 <div className="flex items-center space-x-4 mt-10 ml-2">
                   <Skeleton className="h-12 w-12 rounded-full" />
@@ -56,17 +56,8 @@ const CategoryDataPage = () => {
                             </div>
                             <Skeleton className="h-[6vh] w-[10vw] rounded-xl" />
                           </div>
-
                         </div>
                         <div className="mt-20 flex flex-col space-y-6">
-                          {/* <div className="flex flex-col space-y-3">
-                            <div className="flex flex-row justify-evenly space-x-4">
-                            <Skeleton className="h-[10vh] w-[18vw] rounded-xl" />
-                            <Skeleton className="h-[10vh] w-[18vw] rounded-xl" />
-                            <Skeleton className="h-[10vh] w-[18vw] rounded-xl" />
-                            <Skeleton className="h-[10vh] w-[18vw] rounded-xl" />
-                            </div>
-                          </div> */}
                           <div className="flex flex-col space-y-3">
                             <Skeleton className="h-[8vh] w-[80vw] rounded-xl" />
                             <div className="space-y-2">
@@ -85,7 +76,6 @@ const CategoryDataPage = () => {
                         <div className="flex flex-row justify-end space-x-4">
                           <Skeleton className="h-[5vh] w-[6vw] rounded-xl" />
                           <Skeleton className="h-[5vh] w-[6vw] rounded-xl" />
-
                         </div>
                       </div>
                     </div>
@@ -104,7 +94,6 @@ const CategoryDataPage = () => {
   }
 
   if (status === "success") {
-    console.log(categoryData);
     const formattedcategoryData: CategoryColumn[] = categoryData.map((item) => ({
       id: item.id,
       name: item.name,

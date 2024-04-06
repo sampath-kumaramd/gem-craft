@@ -1,22 +1,19 @@
-import { cn } from "@/lib/utils";
-
-import { Button } from "./ui/button";
-import { FileBarChart2, Plus } from "lucide-react";
-import { HiOutlineSupport } from "react-icons/hi";
-import { BsCheck2Square } from "react-icons/bs";
-import { FiUsers } from "react-icons/fi";
-import { LuFlag } from "react-icons/lu";
-import { CiSettings } from "react-icons/ci";
-import { Separator } from "./ui/separator";
 import { UserButton } from "@clerk/nextjs";
+import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
+import { Separator } from "./ui/separator";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+
+import { FileBarChart2, Plus } from "lucide-react";
+import { CiSettings } from "react-icons/ci";
+import { HiOutlineSupport } from "react-icons/hi";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function Sidebar({ className }: SidebarProps) {
+
   const pathname = usePathname();
-  // const params = useParams();
 
   const routes = [
     {
@@ -25,12 +22,6 @@ export function Sidebar({ className }: SidebarProps) {
       active: pathname === "/category-data",
       icon: FileBarChart2,
     },
-    // {
-    //   href: "/users",
-    //   label: "Users",
-    //   active: pathname === "/users",
-    //   icon: FiUsers,
-    // },
   ];
 
   const router = useRouter();
