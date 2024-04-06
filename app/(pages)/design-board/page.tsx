@@ -10,7 +10,9 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { SignOutButton, UserButton } from "@clerk/nextjs";
 import ItemCard from "@/components/item-card";
+import DroppableArea from "@/components/droppable-area";
 import Link from "next/link";
+import { Item } from "@prisma/client";
 
 export default function Home() {
   const {
@@ -47,6 +49,7 @@ export default function Home() {
   ]
 
   const [currentChainImage, setCurrentChainImage] = useState(matalColors[0].chainSrc);
+  const [droppedItem, setDroppedItem] = useState<Item>();
 
   const handlClickOnRing = (chainSrc: string) => {
     // Update the current chain image when the button is clicked
@@ -121,7 +124,17 @@ export default function Home() {
                 {allItems.flat().map((item) => {
                   if (item.type === "GEM") {
                     return (
-                      <ItemCard key={item.id} item={item} />
+                      <ItemCard
+                        key={item.id}
+                        item={item}
+                        draggable={true}
+                        onDragStart={(e) => {
+                          e.dataTransfer.setData('text/plain', item.id);
+                        }}
+                        onDragEnd={() => {
+                          setDroppedItem(undefined);
+                        }}
+                      />
                     )
                   }
                 })}
@@ -143,9 +156,14 @@ export default function Home() {
 
                 );
               })}</div>
-            <div className=" flex justify-center">
-              <Image src="/skin.png" width={700} height={500} alt="image" />
+            <div className="relative ">
+              <Image src="/skin.png" width={700} height={500} alt="image" className=" absolute " />
               <Image src={currentChainImage} width={700} height={500} alt="image" className=" absolute mt-36" />
+              <DroppableArea allItems={allItems} className=" absolute  z-20 mt-[24vh] ml-[1vw]" />
+              <DroppableArea allItems={allItems} className=" absolute z-20  mt-[36vh] ml-[7vw]" />
+              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[42vh] ml-[18vw]" />
+              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[36vh] ml-[27vw]" />
+              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[24vh] ml-[33.5vw]" />
             </div>
           </div>
           <div className=" col-span-3 space-y-8 text-end">
@@ -164,7 +182,17 @@ export default function Home() {
                 {allItems.flat().map((item) => {
                   if (item.type === "PENDANT") {
                     return (
-                      <ItemCard key={item.id} item={item} />
+                      <ItemCard
+                        key={item.id}
+                        item={item}
+                        draggable={true}
+                        onDragStart={(e) => {
+                          e.dataTransfer.setData('text/plain', item.id);
+                        }}
+                        onDragEnd={() => {
+                          setDroppedItem(undefined);
+                        }}
+                      />
                     )
                   }
                 })}
