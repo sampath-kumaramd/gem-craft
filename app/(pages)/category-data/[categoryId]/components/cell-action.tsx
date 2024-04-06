@@ -71,12 +71,12 @@ export const ItemCellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
+          {/* <DropdownMenuItem
             onClick={() => router.push(`/category-data/${data.categoryId}/items/item/${data.id}`)}
           >
             <Eye className="mr-2 h-4 w-4" />
             Views
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DropdownMenuItem
             onClick={() => router.push(`/category-data/${data.categoryId}/items/${data.id}`)}
           >

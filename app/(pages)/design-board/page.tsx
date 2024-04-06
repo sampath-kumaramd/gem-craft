@@ -38,7 +38,7 @@ export default function Home() {
   const [droppedItems, setDroppedItems] = useState<Item[]>([]);
 
   const handleItemDropped = (item: Item) => {
-      setDroppedItems(prevItems => [...prevItems, item]);
+    setDroppedItems(prevItems => [...prevItems, item]);
   }
 
   const handlClickOnRing = (chainSrc: string) => {
@@ -67,37 +67,6 @@ export default function Home() {
   if (status === "success") {
     console.log(allItems.flat());
     return (
-      // <DndExample />
-      // <>
-      // {allItems.flat().map((item) => {
-      //   return (
-      //     <div key={item.id} className={styles.card}>
-      //       <Image
-      //         src={item.image || 'https://via.placeholder.com/300'}
-      //         alt={item.name}
-      //         width={300}
-      //         height={300}
-      //       />
-      //       <h3>{item.name}</h3>
-      //       <p>{item.description}</p>
-      //       {/* <p>{item.price}</p> */}
-      //       <p>{item.stock}</p>
-      //       <p>{item.material}</p>
-      //       <p>{item.natural}</p>
-      //       <p>{item.shape}</p>
-      //       <p>{item.texture}</p>
-      //       <p>{item.colors}</p>
-      //       {/* <p>{item.weight}</p> */}
-      //       <p>{item.quantity}</p>
-      //       <p>{item.active}</p>
-      //       <p>{item.dimensions}</p>
-      //       <p>{item.categoryId}</p>
-      //     </div>
-      //   );
-      // })};
-
-      // </>
-
       <>
         <div className="flex justify-center items-center space-x-6 my-4">
           <Avatar>
@@ -118,7 +87,7 @@ export default function Home() {
             <div className=" border-dashed w-full h-[50vh] border-2">
               <div className=" p-4 flex space-x-4">
                 {allItems.flat().map((item) => {
-                  if (item.type === "GEM") {
+                  if (item.type === "BEADS") {
                     return (
                       <ItemCard
                         key={item.id}
@@ -155,11 +124,11 @@ export default function Home() {
             <div className="relative flex justify-center">
               <Image src="/skin.png" width={700} height={500} alt="image" className=" absolute " />
               <Image src={currentChainImage} width={700} height={500} alt="image" className=" absolute mt-36" />
-              <DroppableArea allItems={allItems} className=" absolute  z-20 mt-[24vh] -ml-[33.5vw]"  onItemDropped={handleItemDropped}  />
-              <DroppableArea allItems={allItems} className=" absolute z-20  mt-[36vh] -ml-[24vw]"  onItemDropped={handleItemDropped}  />
-              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[42vh] "  onItemDropped={handleItemDropped} />
-              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[36vh] ml-[24vw]"  onItemDropped={handleItemDropped} />
-              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[24vh] ml-[33.5vw]"  onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute  z-20 mt-[24vh] -ml-[33.5vw]" onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute z-20  mt-[36vh] -ml-[24vw]" onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[42vh] " onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[36vh] ml-[24vw]" onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[24vh] ml-[33.5vw]" onItemDropped={handleItemDropped} />
             </div>
           </div>
           <div className=" col-span-3 space-y-8 text-end">
@@ -169,9 +138,9 @@ export default function Home() {
             </div>
             <div className="text-4xl mt-12">Drops, Links, pendants</div>
             <div className=" border-dashed w-full h-[50vh] border-2">
-              <div className=" p-4">
+              <div className=" p-4 flex space-x-4">
                 {allItems.flat().map((item) => {
-                  if (item.type === "PENDANT") {
+                  if (item.type === "PENDANTS" || item.type === "DROPS" || item.type === "LINKS") {
                     return (
                       <ItemCard
                         key={item.id}
@@ -201,9 +170,9 @@ export default function Home() {
           them on the chain, we will make
           them inline. If you place them
           under the chain, we will dangle them.</div>
-        <div className=" flex justify-center gap-8">       
-         {/* <Link href="/category-data"> <Button className="mx-16"> Inventory </Button></Link> */}
-          <Button onClick={handleScreenshot}>Take Screenshot</Button>
+        <div className=" flex justify-center gap-8">
+          <Link href="/category-data"> <Button > Inventory </Button></Link>
+          <Button onClick={handleScreenshot} >Take Screenshot</Button>
           <Button onClick={() => console.log(droppedItems)}>Log Items</Button>
         </div>
 

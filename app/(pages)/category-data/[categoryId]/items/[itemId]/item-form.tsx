@@ -14,12 +14,13 @@ import TSForm, {
   optionalImageUploadSchema,
   optionalItemTypeSelectSchema,
 } from "@/components/ui/form";
-import { CreateItemType, EditItem, ItemType, createItem, deleteItems } from "@/hooks/items";
+import { CreateItemType, EditItem, ItemType, createItem, deleteItems, updateItem } from "@/hooks/items";
 import { Sidebar } from "@/components/sidebar";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
+import { use, useEffect } from "react";
 
 interface ItemsFormProps {
   initialData: Item;
@@ -43,63 +44,70 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
     weight: z.number().describe("Weight // sample weight"),
     quantity: z.number().describe("Quantity // sample quantity"),
     dimensions: z.string().describe("Dimensions // sample dimensions"),
-    shape: z.string().describe(" Shape // sample name"),
-    texture: z.string().describe("Texture // sample name"),
-    natural: z.boolean().describe("Natural // sample name"),
+    shape: z.string().describe(" Shape // sample shape"),
+    texture: z.string().describe("Texture // sample texture"),
+    natural: z.boolean().describe("Natural // sample natural"),
 
     // colors: colorSelectSchema,
     // material: z.array(z.string()).describe("Materials // sample name"),
     //
   });
 
-  const optionalItemSchema = z.object({
-    type: optionalItemTypeSelectSchema,
-    name: z.string().optional().describe("Name // sample name"),
-
-    description: optionalDescriptionSchema,
-    image: optionalImageUploadSchema,
-    price: z.number().optional().describe("Price // sample price"),
-    stock: z.string().optional().describe("Stock // sample stock"),
-    material: z.string().optional().describe("Material // sample material"),
-    weight: z.number().optional().describe("Weight // sample weight"),
-    quantity: z.number().optional().describe("Quantity // sample quantity"),
-    dimensions: z.string().optional().describe("Dimensions // sample dimensions"),
-
-    shape: z.string().optional().describe(" Shape // sample name"),
-    texture: z.string().optional().describe("Texture // sample name"),
-    colors: optionalColorSelectSchema,
-    // material: z
-    //   .array(z.string())
-    //   .optional()
-    //   .describe("Materials // sample name"),
-    //
-    natural: z.boolean().optional().describe("Natural // sample name"),
-  });
+  // const optionalItemSchema = z.object({
+  //   type: optionalItemTypeSelectSchema,
+  //   name: z.string().optional().describe("Name // sample name"),
+  //   description: optionalDescriptionSchema,
+  //   image: optionalImageUploadSchema,
+  //   price: z.number().optional().describe("Price // sample price"),
+  //   stock: z.string().optional().describe("Stock // sample stock"),
+  //   material: z.string().optional().describe("Material // sample material"),
+  //   weight: z.number().optional().describe("Weight // sample weight"),
+  //   quantity: z.number().optional().describe("Quantity // sample quantity"),
+  //   dimensions: z.string().optional().describe("Dimensions // sample dimensions"),
+  //   shape: z.string().optional().describe(" Shape // sample shape"),
+  //   texture: z.string().optional().describe("Texture // sample texture"),
+  //   colors: optionalColorSelectSchema,
+  //   // material: z
+  //   //   .array(z.string())
+  //   //   .optional()
+  //   //   .describe("Materials // sample name"),
+  //   //
+  //   natural: z.boolean().optional().describe("Natural // sample natural"),
+  // });
 
   const itemData: CreateItemType = {
     name: "",
     categoryId: "",
-    type: ItemType.GEM,
-    material: [],
+    type: ItemType.BEADS,
+    material: ["gold", "silver", "platinum"],
     natural: false,
     shape: "",
     texture: "",
     colors: [],
+    active: true,
+    // image: "",
+    // price: 0,
+    // stock: "",
+    // weight: 0,
+    // quantity: 0,
+    // dimensions: "",
   };
 
   const itemType = {
-    GEM: "GEM",
-    PENDANT: "PENDANT",
+    BEADS: "Beads",
+    PENDANTS: "Pendants",
+    DROPS: "Drops",
+    LINKS: "Links",
   };
 
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const createCategoryMutation = useMutation({
+  const createItemMutation = useMutation({
     mutationFn: createItem,
     onSuccess: (data) => {
-      queryClient.setQueryData(["category"], data);
-      queryClient.invalidateQueries({ queryKey: ["category"], exact: true });
+      queryClient.setQueryData(["items"], data);
+      queryClient.invalidateQueries({ queryKey: ["items"], exact: true });
       router.refresh();
       router.push(`/category-data/${categoryId}/items`);
       toast.success("item Created Successfully");
@@ -107,7 +115,7 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
   });
 
   // function handleSubmit(data: z.infer<typeof caregorySchema>) {
-  //   createCategoryMutation.mutate({
+  //   createItemMutation.mutate({
   //     id: categoryCreateId,
   //     name: data.name,
   //     //@ts-ignore
@@ -115,45 +123,57 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
   //   });
   // }
 
-  // const createCategoryUpdateMutations = useMutation({
-  //   mutationFn: updateCategory,
-  //   onSuccess: (data: z.infer<typeof caregorySchema>) => {
-  //     queryClient.setQueryData(["category"], data);
-  //     queryClient.invalidateQueries({ queryKey: ["category"], exact: true });
-  //     router.refresh();
-  //     router.push(`/category-data`);
-  //     toast.success("Category Updated Successfully");
-  //   },
-  // });
+  const createItemUpdateMutations = useMutation({
+    mutationFn: updateItem,
+    onSuccess: (data: z.infer<typeof itemSchema>) => {
+      queryClient.setQueryData(["items"], data);
+      queryClient.invalidateQueries({ queryKey: ["items"], exact: true });
+      router.refresh();
+      router.push(`/category-data/${categoryId}/items`);
+      toast.success("item Created Successfully");
+    },
+  });
 
-  // function handleEditSubmit(initialData: EditItem) {
-  //   deleteItems(categoryId);
-  //   createCategoryUpdateMutations.mutate({
-  //     id: itemId,
-  //     ...initialData,
-  //   });
-  // }
+  function handleEditSubmit(initialData: EditItem) {
+   console.log("initialData edit data", initialData);
+    createItemUpdateMutations.mutate({
+      id: itemId,
+      ...initialData,
+      material: ["gold", "silver", "platinum"],
+    });
+  }
 
   const handleCancel = () => {
     router.push("/category-data");
   };
 
+  useEffect(() => {
+    if (initialData) {
+      console.log("initialData", initialData);
+    }
+  })
+
   function handleSubmit(data: CreateItemType) {
-    itemData.colors = ["red", "blue", "green", "yellow", "black", "white", "brown", "orange", "purple", "pink", "gray", "gold"]
+    itemData.colors = ["red"], ["blue"], ["green"]
     itemData.name = data.name;
     itemData.categoryId = categoryId;
     itemData.type = data.type;
-    itemData.material = ["gold", "silver", "platinum", "copper", "brass", "bronze",];
+    itemData.material =  ["gold", "silver", "platinum", "copper", "brass", "bronzess"];
     itemData.natural = data.natural;
     itemData.shape = data.shape;
     itemData.texture = data.texture;
     itemData.active = true
     itemData.image = data.image
+    itemData.price = data.price
+    itemData.stock = data.stock
+    itemData.weight = data.weight
+    itemData.quantity = data.quantity
+    itemData.dimensions = data.dimensions
     console.log("handleSubmit", data);
     console.log(itemData);
 
     // createItemMutation.mutate(itemData);
-    createCategoryMutation.mutate({
+    createItemMutation.mutate({
       name: data.name,
       //@ts-ignore
       type: data.type,
@@ -164,10 +184,13 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
       texture: data.texture,
       categoryId: itemData.categoryId,
       active: itemData.active,
-      image: data.image
-
+      image: data.image,
+      price: data.price,
+      stock: data.stock,
+      weight: data.weight,
+      quantity: data.quantity,
+      dimensions: data.dimensions,
     });
-
   }
 
   const label: string = initialData ? "Edit item Data" : "Create item Data";
@@ -186,15 +209,15 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
                       Create a items
                     </div>
                     <TSForm
-                      schema={initialData ? optionalItemSchema : itemSchema}
+                      schema={  itemSchema}
                       //@ts-ignore
-                      onSubmit={initialData ? handleSubmit : handleSubmit}
+                      onSubmit={initialData ? handleEditSubmit : handleSubmit}
                       renderAfter={() => (
                         <>
                           <div className="flex justify-end">
                             <Button className="mt-3" onClick={handleCancel}>Cancel</Button>
-                            {createCategoryMutation.isPending ||
-                            createCategoryMutation.isPending ? (
+                            {createItemMutation.isPending ||
+                              createItemMutation.isPending ? (
                               <Button
                                 disabled
                                 className="mx-2 mt-3"
@@ -217,16 +240,24 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
                           ? {
                             name: initialData.name,
                             type: initialData.type,
-                            // description: initialData.description,
-                            // image: initialData.image,
-                            // price: initialData.price?.toNumber,
-                            // stock:initialData.stock,
-                            // material: initialData.material,
-                            weight:initialData.weight?.toNumber(),
-                            // quantity: initialData.quantity,
-                            // dimensions: initialData.dimensions,
-                            shape:initialData.shape,
-                            texture:initialData.texture,
+                            description: initialData.description || '',
+                            image: initialData.image || '',
+                            price: initialData.price
+                              ? typeof initialData.price === 'string'
+                                ? parseFloat(initialData.price)
+                                : initialData.price.toNumber()
+                              : undefined,
+                            stock: initialData.stock?.toString() || '',
+                            material: initialData.material?.toString() || '',
+                            weight: initialData.weight
+                              ? typeof initialData.weight === 'string'
+                                ? parseFloat(initialData.weight)
+                                : initialData.weight.toNumber()
+                              : undefined,
+                            quantity: initialData.quantity || 0,
+                            dimensions: initialData.dimensions || '',
+                            shape: initialData.shape,
+                            texture: initialData.texture,
                             natural: initialData.natural
                           }
                           :
@@ -239,10 +270,10 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
                               label2: "gems name.",
                               afterElement: <Separator />,
                             },
-                            // material: {
-                            //   label2: "",
-                            //   afterElement: <Separator />,
-                            // },
+                            material: {
+                              label2: "",
+                              afterElement: <Separator />,
+                            },
                             natural: {
                               // label2: "",
                               afterElement: <Separator />,
@@ -257,7 +288,7 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
                             },
                             type: {
                               data: { data: itemType }
-                            }
+                            },
                             // colors: {
                             //   label2: "",
                             //   afterElement: <Separator />,

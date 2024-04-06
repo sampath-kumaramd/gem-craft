@@ -3,8 +3,10 @@ import { Decimal } from "@prisma/client/runtime/library";
 import axios from "axios";
 
 export enum ItemType {
-  GEM,
-  PENDANT,
+  BEADS = "BEADS",
+  PENDANTS = "PENDANTS",
+  DROPS = "DROPS",
+  LINKS = "LINKS"
 }
 
 export interface CreateItemType {
@@ -13,7 +15,7 @@ export interface CreateItemType {
   description?: string;
   image?: string;
   price?: number;
-  stock?: number;
+  stock?: string;
   material: string[];
   natural: boolean;
   shape: string;

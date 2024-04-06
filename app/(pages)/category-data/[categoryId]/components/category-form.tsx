@@ -30,8 +30,10 @@ export const CategoryFrom: React.FC<CategoryFormProps> = ({
   const [categoryCreateId, setcategoryCreateId] = useState(uniqid());
 
   const itemType = {
-    GEM: "GEM",
-    PENDANT: "PENDANT",
+    BEADS: "Beads",
+    PENDANTS: "Pendants",
+    DROPS: "Drops",
+    LINKS: "Links",
   };
 
   const caregorySchema = z.object({

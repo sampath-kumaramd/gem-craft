@@ -42,7 +42,7 @@ export const CategoryPageComponent: React.FC<CategoryDataFormProps> = ({
                     </Button>
 
                     <div className="mb-5 flex text-2xl font-semibold tracking-tight mt-8">
-                      Items in {initialData.name} Category
+                      Items in - {initialData.name}
                       {/* {initialData.name}{" "} */}
                       <p
                         onClick={() =>

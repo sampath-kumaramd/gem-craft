@@ -9,16 +9,18 @@ datasource db {
 }
 
 enum ItemType {
-  GEM
-  PENDANT
+  BEADS
+  PENDANTS
+  DROPS
+  LINKS
 }
 
 enum ChainColor {
-  COLOR1
-  COLOR2
-  COLOR3
-  COLOR4
-  COLOR5
+  GOLD
+  ANTIQUE_GOLD
+  SILVER
+  ANTIQUE_SILVER
+  GOLD_MATTE
 }
 
 model Item {
@@ -28,7 +30,7 @@ model Item {
   description String?
   image       String?
   price       Decimal?
-  stock       Int?
+  stock       String?
   material    String[]
   natural     Boolean
   shape       String
@@ -63,7 +65,7 @@ model Jewelry {
   chainColor  ChainColor
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
-  userId      Int
+  userId      String
   positions   JewelryPosition[]
 }
 
@@ -89,7 +91,7 @@ model JewelryDesign {
   chainColor  ChainColor
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
-  userId      Int
+  userId      String
   positions   JewelryPosition[]
 }
 

@@ -21,15 +21,12 @@ export default function ItemSelectField({
   label2: string;
 }) {
   const { field } = useTsController<string>();
+
   const SelectData: itemType[] = [
-    {
-      id: "1",
-      name: "GEM",
-    },
-    {
-      id: "2",
-      name: "PENDANT",
-    },
+    { id: "1", name: "BEADS" },
+    { id: "2", name: "PENDANTS" },
+    { id: "3", name: "DROPS" },
+    { id: "4", name: "LINKS" },
   ];
 
   return (
