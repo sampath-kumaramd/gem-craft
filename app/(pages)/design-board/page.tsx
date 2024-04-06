@@ -10,7 +10,7 @@ import { getAllItems } from "@/hooks/items";
 import { Item } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { saveAs } from 'file-saver';
@@ -56,7 +56,11 @@ export default function Home() {
       });
     });
   };
-
+useEffect(() => {
+    if (allItems) {
+      console.log(allItems, 'allItems');
+    }
+})
   if (status === "error") {
     console.log(error);
   }
