@@ -56,11 +56,11 @@ export default function Home() {
       });
     });
   };
-useEffect(() => {
+  useEffect(() => {
     if (allItems) {
       console.log(allItems, 'allItems');
     }
-})
+  })
   if (status === "error") {
     console.log(error);
   }
@@ -125,12 +125,12 @@ useEffect(() => {
               })}</div>
             <div className="relative flex justify-center">
               <Image src="/skin.png" width={700} height={500} alt="image" className=" absolute " />
-              <Image src={currentChainImage} width={700} height={500} alt="image" className=" absolute mt-36" />
-              <DroppableArea allItems={allItems} className=" absolute  z-20 mt-[24vh] -ml-[33.5vw]" onItemDropped={handleItemDropped} />
-              <DroppableArea allItems={allItems} className=" absolute z-20  mt-[36vh] -ml-[24vw]" onItemDropped={handleItemDropped} />
-              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[42vh] " onItemDropped={handleItemDropped} />
-              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[36vh] ml-[24vw]" onItemDropped={handleItemDropped} />
-              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[24vh] ml-[33.5vw]" onItemDropped={handleItemDropped} />
+              <Image src={currentChainImage} width={700} height={550} alt="image" className=" absolute mt-[8.5rem]" />
+              <DroppableArea allItems={allItems} className=" absolute  z-20  mt-[12rem] -ml-[37rem]" onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute z-20  mt-[21rem] -ml-[24rem]" onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[24rem] " onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[21rem] ml-[24rem]" onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[12rem] ml-[37rem]" onItemDropped={handleItemDropped} />
             </div>
           </div>
           <div className=" col-span-3 space-y-8 text-end">
@@ -163,7 +163,7 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className="mx-16 mt-8">*  Be careful how you place the beads. We will make them the
+        <div className="mx-16 mt-[4rem]">*  Be careful how you place the beads. We will make them the
           way you Show us. Place them
           on the chain for inline, under it
           for dangling.</div>
