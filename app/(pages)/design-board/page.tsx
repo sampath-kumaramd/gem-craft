@@ -71,7 +71,7 @@ export default function Home() {
     console.log(allItems.flat());
     return (
       <>
-        <div className="flex justify-center items-center space-x-6 my-4]">
+        <div className="flex justify-center items-center space-x-6 my-4] bg-[#f7f8ec]">
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>
@@ -79,7 +79,7 @@ export default function Home() {
           <span className=" text-2xl">Gem Caft</span>
         </div>
         <Separator />
-        <div className=" grid space-x-4 grid-cols-12 mx-8 px-8 mt-9 py-12 shadow-lg shadow-slate-700 rounded-xl bg-[#fffcf7]">
+        <div className=" grid space-x-4 grid-cols-12 mx-8 px-8 mt-9 py-12 shadow-lg shadow-slate-700 rounded-3xl bg-[#fffcf7]">
           <div className=" col-span-3  space-y-8">
             <div className=" text-lg text-gray-600">Select Your neckless length</div>
             <div className="flex justify-start space-x-6 my-4">
@@ -123,8 +123,8 @@ export default function Home() {
 
                 );
               })}</div>
-            <div className="relative flex justify-center ">
-              <Image src="/skin.png" width={700} height={500} alt="image" className=" absolute shadow-md shadow-slate-700" />
+            <div className="relative flex justify-center rounded-xl">
+              <Image src="/skin.png" width={700} height={500} alt="image" className=" absolute shadow-md shadow-slate-700  rounded-xl" />
               <Image src={currentChainImage} width={700} height={550} alt="image" className=" absolute mt-[8.5rem]" />
               <DroppableArea allItems={allItems} className=" absolute  z-20  mt-[12rem] -ml-[37rem]" onItemDropped={handleItemDropped} />
               <DroppableArea allItems={allItems} className=" absolute z-20  mt-[21rem] -ml-[24rem]" onItemDropped={handleItemDropped} />
