@@ -71,7 +71,7 @@ export default function Home() {
     console.log(allItems.flat());
     return (
       <>
-        <div className="flex justify-center items-center space-x-6 my-4">
+        <div className="flex justify-center items-center space-x-6 my-4]">
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>
@@ -79,14 +79,14 @@ export default function Home() {
           <span className=" text-2xl">Gem Caft</span>
         </div>
         <Separator />
-        <div className=" grid space-x-4 grid-cols-12 mx-16 mt-16 ">
+        <div className=" grid space-x-4 grid-cols-12 mx-8 px-8 mt-9 py-12 shadow-lg shadow-slate-700 rounded-xl bg-[#fffcf7]">
           <div className=" col-span-3  space-y-8">
             <div className=" text-lg text-gray-600">Select Your neckless length</div>
             <div className="flex justify-start space-x-6 my-4">
               <div>Comming soon...</div>
             </div>
             <div className="text-4xl mt-12">Beads</div>
-            <div className=" border-dashed w-full h-[50vh] border-2">
+            <div className=" w-full h-[50vh] shadow-md shadow-slate-700 rounded-xl bg-[#fcf6ec]">
               <div className=" p-4 flex space-x-4">
                 {allItems.flat().map((item) => {
                   if (item.type === "BEADS") {
@@ -110,7 +110,7 @@ export default function Home() {
             </div>
           </div>
           <div className=" col-span-6 space-y-8 text-center items-center">
-            <div className=" text-lg text-gray-900">Select Your Metal color</div>
+            <div className=" text-3xl text-gray-900">Select Your Metal color</div>
             <div className="flex justify-center items-center space-x-10 my-4">
               {matalColors.map((color) => {
                 return (
@@ -123,8 +123,8 @@ export default function Home() {
 
                 );
               })}</div>
-            <div className="relative flex justify-center">
-              <Image src="/skin.png" width={700} height={500} alt="image" className=" absolute " />
+            <div className="relative flex justify-center ">
+              <Image src="/skin.png" width={700} height={500} alt="image" className=" absolute shadow-md shadow-slate-700" />
               <Image src={currentChainImage} width={700} height={550} alt="image" className=" absolute mt-[8.5rem]" />
               <DroppableArea allItems={allItems} className=" absolute  z-20  mt-[12rem] -ml-[37rem]" onItemDropped={handleItemDropped} />
               <DroppableArea allItems={allItems} className=" absolute z-20  mt-[21rem] -ml-[24rem]" onItemDropped={handleItemDropped} />
@@ -139,8 +139,8 @@ export default function Home() {
               <div>Comming soon...</div>
             </div>
             <div className="text-4xl mt-12">Drops, Links, pendants</div>
-            <div className=" border-dashed w-full h-[50vh] border-2">
-              <div className=" p-4 flex space-x-4">
+            <div className=" w-full h-[50vh] shadow-md shadow-slate-700 rounded-xl bg-[#fcf6ec]">
+              <div className=" p-4 flex space-x-4 ">
                 {allItems.flat().map((item) => {
                   if (item.type === "PENDANTS" || item.type === "DROPS" || item.type === "LINKS") {
                     return (

@@ -25,7 +25,7 @@ function ItemCard({ item, draggable, onDragStart, onDragEnd }: Props) {
 
     return (
         <Card
-            className='w-16 h-16 bg-transparent border-none'
+            className='w-16 h-16 bg-transparent border-none '
             draggable={draggable}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}

@@ -16,7 +16,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { ItemColumn } from "./columns";
 import { useRouter } from "next/navigation";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import { CopyPlus, Edit, MoreHorizontal, Trash } from "lucide-react";
 
 interface CellActionProps {
   data: ItemColumn;
@@ -70,6 +70,12 @@ export const ItemCellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem
+            onClick={() => router.push(`/category-data/${data.categoryId}/cloneItems/${data.id}`)}
+          >
+            <CopyPlus className="mr-2 h-4 w-4" />
+            Clone Item
+          </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => router.push(`/category-data/${data.categoryId}/items/${data.id}`)}
           >
