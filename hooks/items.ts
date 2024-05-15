@@ -54,7 +54,7 @@ export interface EditItem extends CreateItemType {
 }
 
 export async function getAllItems(){
-  return axios.get<Item[]>('/api/items', { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.data) ;
+  return axios.get<Item[]>('/api/items').then((res) => res.data) ;
 }
 
 export function getItems(categoryId:string) {
