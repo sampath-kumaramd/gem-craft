@@ -87,10 +87,9 @@ export default function Home() {
             </div>
             <div className="text-4xl mt-12">Beads</div>
             <div className=" w-full h-[50vh] shadow-md shadow-slate-700 rounded-xl bg-[#fcf6ec]">
-              <div className=" p-4 flex space-x-4">
+              <div className="p-4 grid grid-cols-4 gap-4">
                 {allItems.flat().map((item) => {
                   if (item.type === "BEADS") {
-                    console.log(item, 'item');
                     return (
                       <ItemCard
                         key={item.id}
