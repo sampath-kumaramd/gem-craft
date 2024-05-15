@@ -53,8 +53,8 @@ export interface EditItem extends CreateItemType {
   id?: string;
 }
 
-export async function getAllItems(){
-  return fetch('/api/items', { cache: 'no-store' }).then((res) => res.json()) ;
+export async function getAllItems() {
+  return fetch('/api/items', { cache: 'no-store' }).then((res) => res.json());
 }
 
 export function getItems(categoryId:string) {
