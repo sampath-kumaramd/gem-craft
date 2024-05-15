@@ -9,7 +9,7 @@ export async function GET(req: Request) {
     console.log(categories, 'categories');
     const categoriesWithItems = await Promise.all(
       categories.map(async (category) => {
-        return axios.get<Item[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/${category.id}/items`)
+        return axios.get<Item[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/${category.id}/items `)
           .then((res) => res.data)
           .catch((err) => {
             console.error('[GET_CATEGORY_ITEMS]', err);
