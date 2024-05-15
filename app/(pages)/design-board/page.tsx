@@ -16,6 +16,7 @@ import Link from "next/link";
 import { saveAs } from 'file-saver';
 import html2canvas from 'html2canvas';
 
+export const fetchCache = 'force-no-store'
 export default function Home() {
   const {
     status,
