@@ -24,6 +24,7 @@ export default function Home() {
   } = useQuery({
     queryKey: ["items_getAllItems"],
     queryFn: getAllItems,
+    refetchOnWindowFocus: true,
   });
   const matalColors = [
     { id: 1, name: "Gold", src: "/ring/G.png", alt: "Gold", chainSrc: "/chain/Chain_1.png" },

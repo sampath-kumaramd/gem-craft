@@ -104,7 +104,7 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
     onSuccess: (data) => {
       queryClient.setQueryData(["items"], data);
       queryClient.invalidateQueries({ queryKey: ["items"], exact: true });
-      queryClient.invalidateQueries({ queryKey: ["items_getAllItems"], exact: true });
+      queryClient.invalidateQueries({ queryKey: ["items_getAllItems"]});
       router.refresh();
       router.push(`/category-data/${categoryId}/items`);
       toast.success("item Created Successfully");
@@ -125,7 +125,7 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
     onSuccess: (data: z.infer<typeof itemSchema>) => {
       queryClient.setQueryData(["items"], data);
       queryClient.invalidateQueries({ queryKey: ["items"], exact: true });
-      queryClient.invalidateQueries({ queryKey: ["items_getAllItems"], exact: true });
+      queryClient.invalidateQueries({ queryKey: ["items_getAllItems"]});
       router.refresh();
       router.push(`/category-data/${categoryId}/items`);
       toast.success("item Created Successfully");
