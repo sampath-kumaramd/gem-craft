@@ -33,6 +33,7 @@ export const ItemCellAction: React.FC<CellActionProps> = ({ data }) => {
       queryClient.invalidateQueries({ queryKey: ["item"] });
       queryClient.setQueryData(["item"], data);
       router.push(`/category-data/${data.categoryId}/items`);
+      queryClient.invalidateQueries({ queryKey: ["items_getAllItems"], exact: true });
     },
     onError: () => {
       toast.error("Error in deleting item");
@@ -44,10 +45,10 @@ export const ItemCellAction: React.FC<CellActionProps> = ({ data }) => {
       toast.error("Category ID is missing");
       return;
     }
-
     deletePostMutation.mutate([id, categoryId]);
     router.refresh();
     queryClient.setQueryData(["item"], data);
+    queryClient.invalidateQueries({ queryKey: ["items_getAllItems"], exact: true });
     toast.success("Item Deleted Successfully");
     setOpen(false);
   };
