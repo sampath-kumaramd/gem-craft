@@ -3,14 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   try {
-    const categoriesWithItems = await prisma.item.findMany({});
+    const categoriesWithItems =  await prisma.item.findMany({});
     console.log(categoriesWithItems, 'categoriesWithItems');
 
+    // Create a new response with Cache-Control headers
     const response = NextResponse.json(categoriesWithItems);
     response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     response.headers.set('Pragma', 'no-cache');
     response.headers.set('Expires', '0');
-    response.headers.set('Surrogate-Control', 'no-store');
 
     return response;
   } catch (err) {

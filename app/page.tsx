@@ -26,6 +26,7 @@ export default function Home() {
     queryKey: ["items_getAllItems"],
     queryFn: getAllItems,
     refetchOnWindowFocus: true,
+    staleTime: 0, // Data will be considered stale immediately, forcing a refetch
   });
   const matalColors = [
     { id: 1, name: "Gold", src: "/ring/G.png", alt: "Gold", chainSrc: "/chain/Chain_1.png" },
