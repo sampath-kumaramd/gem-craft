@@ -90,7 +90,7 @@ export default function Home() {
             <div className="text-4xl mt-12">Beads</div>
             <div className=" w-full h-[50vh] shadow-md shadow-slate-700 rounded-xl bg-[#fcf6ec]">
               <div className="p-4 grid grid-cols-4 gap-4">
-                {allItems.flat().map((item) => {
+                {allItems.flat().map((item:Item) => {
                   if (item.type === "BEADS") {
                     return (
                       <ItemCard
@@ -143,7 +143,7 @@ export default function Home() {
             <div className="text-4xl mt-12">Drops, Links, pendants</div>
             <div className=" w-full h-[50vh] shadow-md shadow-slate-700 rounded-xl bg-[#fcf6ec]">
             <div className="p-4 grid grid-cols-4 gap-4">
-                {allItems.flat().map((item) => {
+                {allItems.flat().map((item:Item) => {
                   if (item.type === "PENDANTS" || item.type === "DROPS" || item.type === "LINKS") {
                     return (
                       <ItemCard
