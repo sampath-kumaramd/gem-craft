@@ -90,6 +90,7 @@ export default function Home() {
               <div className=" p-4 flex space-x-4">
                 {allItems.flat().map((item) => {
                   if (item.type === "BEADS") {
+                    console.log(item, 'item');
                     return (
                       <ItemCard
                         key={item.id}

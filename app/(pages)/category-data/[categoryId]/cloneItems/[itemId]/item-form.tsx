@@ -220,11 +220,11 @@ export const ItemsFrom: React.FC<ItemsFormProps> = ({
                                 type="submit"
                               >
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                {label}
+                               Clone Item
                               </Button>
                             ) : (
                               <Button className="mx-2 mt-3" type="submit">
-                                {label}
+                               Clone Item
                               </Button>
                             )}
                           </div>
