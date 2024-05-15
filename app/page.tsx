@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import ItemCard from "@/components/item-card";
 import DroppableArea from "@/components/droppable-area";
 import { getAllItems } from "@/hooks/items";
-import axios from "axios";
 
 import { Item } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
@@ -18,19 +17,15 @@ import { saveAs } from 'file-saver';
 import html2canvas from 'html2canvas';
 
 export default function Home() {
-  // const {
-  //   status,
-  //   error,
-  //   data: allItems,
-  // } = useQuery({
-  //   queryKey: ["items_getAllItems"],
-  //   queryFn: getAllItems,
-  //   refetchOnWindowFocus: true,
-  // });
-
-
-
-
+  const {
+    status,
+    error,
+    data: allItems,
+  } = useQuery({
+    queryKey: ["items_getAllItems"],
+    queryFn: getAllItems,
+    refetchOnWindowFocus: true,
+  });
   const matalColors = [
     { id: 1, name: "Gold", src: "/ring/G.png", alt: "Gold", chainSrc: "/chain/Chain_1.png" },
     { id: 2, name: "Antique Gold", src: "/ring/AG.png", alt: "Antique Gold", chainSrc: "/chain/Chain_2.png" },
@@ -42,7 +37,7 @@ export default function Home() {
   const [currentChainImage, setCurrentChainImage] = useState(matalColors[0].chainSrc);
   const [droppedItem, setDroppedItem] = useState<Item>();
   const [droppedItems, setDroppedItems] = useState<Item[]>([]);
-  const [allItems, setAllItems] = useState<Item[]>([]);
+
   const handleItemDropped = (item: Item) => {
     setDroppedItems(prevItems => [...prevItems, item]);
   }
@@ -63,20 +58,18 @@ export default function Home() {
     });
   };
   useEffect(() => {
-    const fetchItems = async () => {
-      const response = await axios.get<Item[]>('/api/items').then((res) => res.data);
-      setAllItems(response);
+    if (allItems) {
+      console.log(allItems, 'allItems');
     }
-    fetchItems();
-  },[]);
-  // if (status === "error") {
-  //   console.log(error);
-  // }
-  // if (status === "pending") {
-  //   return (<div>Loading...</div>)
-  // }
-  // if (status === "success") {
-    // console.log(allItems.flat());
+  })
+  if (status === "error") {
+    console.log(error);
+  }
+  if (status === "pending") {
+    return (<div>Loading...</div>)
+  }
+  if (status === "success") {
+    console.log(allItems.flat());
     return (
       <>
         <div className="flex justify-center items-center space-x-6 my-4] bg-[#f7f8ec]">
@@ -189,4 +182,4 @@ export default function Home() {
       </>
     );
   }
-// }
+}
