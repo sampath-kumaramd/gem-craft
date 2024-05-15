@@ -68,7 +68,7 @@ export default function Home() {
       setAllItems(response);
     }
     fetchItems();
-  })
+  },[]);
   // if (status === "error") {
   //   console.log(error);
   // }
