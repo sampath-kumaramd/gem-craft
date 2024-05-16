@@ -15,16 +15,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { saveAs } from 'file-saver';
 import html2canvas from 'html2canvas';
+import { v4 as uuidv4 } from 'uuid';
 
 export const fetchCache = 'force-no-store'
 export default function Home() {
+  const string = uuidv4();
   const {
     status,
     error,
     data: allItems,
   } = useQuery({
     queryKey: ["items_getAllItems"],
-    queryFn: getAllItems,
+    queryFn: () => getAllItems(string),
     refetchOnWindowFocus: true,
     staleTime: 0, // Data will be considered stale immediately, forcing a refetch
   });
