@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Edit, Eye, MoreHorizontal, Trash } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface ItemCardActionProps {
     padding: number;
@@ -18,12 +19,18 @@ interface ItemCardActionProps {
 
 export const ItemCardAction: React.FC<ItemCardActionProps> = ({ padding, setPadding, rotate, setRotate }) => {
     const scaleUp = () => {
-        if (padding <= 0) return;
+        if (padding <= 0) {
+            toast.error('Cannot scale down anymore');
+            return;
+        };
         setPadding(padding - 2);
     }
 
     const scaleDown = () => {
-        if (padding >= 10) return;
+        if (padding >= 14) {
+            toast.error('Cannot scale up anymore');
+            return;
+        };
         setPadding(padding + 2);
     }
     return (

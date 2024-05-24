@@ -20,7 +20,7 @@ function ItemCard({ item, draggable, onDragStart, onDragEnd }: Props) {
     const [isHovered, setIsHovered] = useState(false);
     const [iconWidth, setIconWidth] = useState(10);
     // const [size, setSize] = useState(0); 
-    const [padding, setPadding] = useState(15);
+    const [padding, setPadding] = useState(0);
 
     useEffect(() => {
         console.log('padding', padding);
