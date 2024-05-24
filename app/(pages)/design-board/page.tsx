@@ -91,8 +91,8 @@ export default function Home() {
               <div>Comming soon...</div>
             </div>
             <div className="text-4xl mt-12">Beads</div>
-            <div className=" w-full h-[50vh] shadow-md shadow-slate-700 rounded-xl bg-[#fcf6ec]">
-              <div className="p-4 grid grid-cols-4 gap-4">
+            <div className=" w-full h-[50vh] shadow-md shadow-slate-700 rounded-xl bg-[#fcf6ec] overflow-y-scroll">
+              <div className="p-4 grid grid-cols-4 gap-4 ">
                 {allItems.flat().map((item: Item) => {
                   if (item.type === "BEADS") {
                     return (
@@ -131,11 +131,11 @@ export default function Home() {
             <div className="relative flex justify-center rounded-xl">
               <Image src="/skin.png" width={700} height={500} alt="image" className=" absolute shadow-md shadow-slate-700  rounded-xl" />
               <Image src={currentChainImage} width={700} height={550} alt="image" className=" absolute mt-[8.5rem]" />
-              <DroppableArea allItems={allItems} className=" absolute  z-20  mt-[12rem] -ml-[37rem]" onItemDropped={handleItemDropped} />
-              <DroppableArea allItems={allItems} className=" absolute z-20  mt-[21rem] -ml-[24rem]" onItemDropped={handleItemDropped} />
-              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[24rem] " onItemDropped={handleItemDropped} />
-              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[21rem] ml-[24rem]" onItemDropped={handleItemDropped} />
-              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[12rem] ml-[37rem]" onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute  z-20  mt-[15rem] -ml-[37rem]" onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute z-20  mt-[22rem] -ml-[24rem]" onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[25rem] " onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[22rem] ml-[24rem]" onItemDropped={handleItemDropped} />
+              <DroppableArea allItems={allItems} className=" absolute z-20 mt-[15rem] ml-[38rem]" onItemDropped={handleItemDropped} />
             </div>
           </div>
           <div className=" col-span-3 space-y-8 text-end">
@@ -144,8 +144,8 @@ export default function Home() {
               <div>Comming soon...</div>
             </div>
             <div className="text-4xl mt-12">Drops, Links, pendants</div>
-            <div className=" w-full h-[50vh] shadow-md shadow-slate-700 rounded-xl bg-[#fcf6ec]">
-            <div className="p-4 grid grid-cols-4 gap-4">
+            <div className=" w-full h-[50vh] shadow-md shadow-slate-700 rounded-xl bg-[#fcf6ec] overflow-y-scroll" >
+            <div className="p-4 grid grid-cols-4 gap-4 ">
                 {allItems.flat().map((item:Item) => {
                   if (item.type === "PENDANTS" || item.type === "DROPS" || item.type === "LINKS") {
                     return (

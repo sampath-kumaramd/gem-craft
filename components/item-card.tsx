@@ -1,4 +1,4 @@
-import React, { DragEvent, useState } from 'react'
+import React, { DragEvent, use, useEffect, useState } from 'react'
 import { Item } from '@prisma/client'
 import {
     Card,
@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/card"
 import Image from 'next/image'
 import { RefreshCcw } from 'lucide-react'
+import { ItemCardAction } from './item-card-action'
 
 type Props = {
     item: Item,
@@ -17,12 +18,14 @@ type Props = {
 function ItemCard({ item, draggable, onDragStart, onDragEnd }: Props) {
     const [rotation, setRotation] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
-    const [iconWidth, setIconWidth] = useState(10);  // Add this line
+    const [iconWidth, setIconWidth] = useState(10);
+    // const [size, setSize] = useState(0); 
+    const [padding, setPadding] = useState(15);
 
-    const rotateImage = () => {
-        setRotation(rotation + 30);
-    }
-
+    useEffect(() => {
+        console.log('padding', padding);
+    }, [padding]);
+    
     return (
         <Card
             className='w-16 h-16 bg-transparent border-none '
@@ -31,19 +34,23 @@ function ItemCard({ item, draggable, onDragStart, onDragEnd }: Props) {
             onDragEnd={onDragEnd}
         >
             <CardContent
-                className='p-0 items-center flex justify-center align-middle relative'
+                className='p-0 '
+                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: `${padding}px` }} // Added style here
                 onMouseEnter={() => { setIsHovered(true); setIconWidth(20); }}  // Modify this line
                 onMouseLeave={() => { setIsHovered(false); setIconWidth(10); }}  // And this line
             >
-                <Image
-                    draggable="false"
-                    src={item.image || 'https://placehold.co/300x300 '}
-                    alt={item.name}
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    style={{ width: '100%', height: 'auto', transform: `rotate(${rotation}deg)` }} />
-                {isHovered && <button className=' absolute -mt-12 ml-10' onClick={rotateImage}><RefreshCcw width={iconWidth} /></button>}
+                <div className='flex justify-center items-center' style={{ height: '100%' }}>
+                    <Image
+                        draggable="false"
+                        src={item.image || 'https://placehold.co/300x300 '}
+                        alt={item.name}
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        style={{ width: `100%`, height: 'auto', transform: `rotate(${rotation}deg)` }}
+                    />
+                </div>
+                <ItemCardAction padding={padding} setPadding={setPadding} rotate={rotation} setRotate={setRotation} />
             </CardContent>
         </Card>
     )
